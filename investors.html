@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>EduToolsFactory – Investors</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(180deg, #0d0620, #1a1440);
+      --accent: #7b5cff;
+      --accent-blue: #3bcbea;
+      --text: #ffffff;
+      --muted: #c6c4d6;
+      --card: #1e1a33;
+      --card-light: #27213f;
+      --shadow: 0 25px 45px rgba(3, 0, 15, 0.6);
+      --border: rgba(123, 92, 255, 0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: rgba(13, 6, 32, 0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(123, 92, 255, 0.2);
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.45);
+    }
+
+    .nav-bar {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem clamp(1rem, 4vw, 2.5rem);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .nav-right {
+      margin-left: auto;
+    }
+
+    nav a {
+      padding: 0.4rem 0.7rem;
+      border-radius: 999px;
+      color: var(--muted);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    nav a:hover,
+    nav a.active {
+      background: rgba(123, 92, 255, 0.28);
+      color: var(--text);
+    }
+
+    .btn {
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      border-radius: 999px;
+      padding: 0.7rem 1.3rem;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #08051a;
+      box-shadow: 0 20px 45px rgba(123, 92, 255, 0.35);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid rgba(59, 203, 234, 0.5);
+      color: var(--accent-blue);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: clamp(1.5rem, 4vw, 3rem) clamp(1rem, 4vw, 2.5rem) 4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+
+    section {
+      background: rgba(30, 26, 51, 0.85);
+      border-radius: 28px;
+      padding: clamp(1.5rem, 4vw, 2.8rem);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      scroll-margin-top: 140px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      line-height: 1.25;
+    }
+
+    h1 {
+      font-size: clamp(2.3rem, 5vw, 3.5rem);
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      margin-bottom: 0.75rem;
+    }
+
+    h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: var(--accent-blue);
+    }
+
+    .section-intro {
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-bullets {
+      list-style: disc;
+      padding-left: 1.3rem;
+      color: var(--muted);
+      margin-top: 0.75rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 18px;
+      padding: 1.4rem;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: 0 18px 35px rgba(0, 0, 0, 0.45);
+      color: var(--muted);
+    }
+
+    .card ul {
+      padding-left: 1.2rem;
+      line-height: 1.5;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .timeline .card {
+      position: relative;
+    }
+
+    .timeline .card::before {
+      content: attr(data-step);
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .cta-block {
+      text-align: center;
+      display: grid;
+      gap: 1rem;
+    }
+
+    .cta-block .btn {
+      width: fit-content;
+      margin: 0 auto;
+    }
+
+    footer {
+      background: #0c0f18;
+      padding: 2rem clamp(1rem, 4vw, 2.5rem);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--muted);
+    }
+
+    .footer-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      margin: 1rem 0;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      padding: 0;
+      border: none;
+      border-radius: 0;
+      font-weight: 500;
+      box-shadow: none;
+      background: transparent;
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+      text-decoration: underline;
+    }
+
+    .footer-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .footer-actions .btn {
+      box-shadow: none;
+    }
+
+    .back-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--accent-blue);
+      cursor: pointer;
+    }
+
+    .floating-top {
+      position: fixed;
+      right: 1rem;
+      bottom: 1.5rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: none;
+      background: var(--accent-blue);
+      color: #08051a;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s, opacity 0.3s;
+      z-index: 1000;
+    }
+
+    .floating-top.visible {
+      display: flex;
+    }
+
+    @media (max-width: 768px) {
+      .nav-bar {
+        padding: 0.6rem 0.9rem;
+        gap: 0.5rem;
+      }
+
+      nav ul {
+        gap: 0.4rem;
+        font-size: 0.82rem;
+      }
+
+      .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+      }
+
+      section {
+        scroll-margin-top: 160px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="nav-bar">
+      <div class="logo">
+        <img src="images/logo.png" alt="EduToolsFactory logo" width="44" height="44">
+        <span>EduToolsFactory</span>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="https://about.edutoolsfactory.com/index.html">Features</a></li>
+          <li><a href="https://about.edutoolsfactory.com/index.html#types">Test &amp; Survey Types</a></li>
+          <li><a href="https://about.edutoolsfactory.com/index.html#modes">Modes</a></li>
+          <li><a href="https://about.edutoolsfactory.com/index.html#analytics">Analytics</a></li>
+          <li><a href="https://about.edutoolsfactory.com/index.html#mcq">MCQ</a></li>
+          <li><a href="https://about.edutoolsfactory.com/index.html#demo">Demo</a></li>
+        </ul>
+      </nav>
+      <button class="btn btn-primary" data-scroll="#hero-investors">Get Started</button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section id="hero-investors">
+      <p style="color: var(--accent); text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.85rem;">
+        Investor briefing
+      </p>
+      <h1>EduToolsFactory - AI-native assessment &amp; survey intelligence for organizations</h1>
+      <p class="section-intro">
+        EduToolsFactory unifies MCQs, surveys, analytics, document extraction and AI-driven test generation into a
+        single,
+        secure platform for schools, companies, training centers and research organizations.
+      </p>
+      <ul class="hero-bullets">
+        <li>AI-powered generation of MCQ tests and surveys from real documents, URLs, or uploaded files.</li>
+        <li>Digital-first engine that can also ingest paper-based tests.</li>
+        <li>Both cloud SaaS and fully offline, on-premise variants for sensitive environments.</li>
+      </ul>
+
+      <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1.2rem;">
+        <a class="btn btn-primary" href="mailto:resolutions.page@gmail.com?subject=Investor%20Deck%20Request">
+          Request investor deck
+        </a>
+        <a class="btn btn-secondary" href="https://calendly.com/edutoolsfactory/intro">
+          Talk to the founder
+        </a>
+      </div>
+
+      <p style="margin-top:1.2rem; color: var(--muted);">
+        Early-stage product with a working MCQ &amp; survey engine, live URL→MCQ workflows, and an active roadmap for
+        enterprise and education adoption.
+      </p>
+    </section>
+
+
+    <!-- PRODUCT MATURITY -->
+    <section id="product">
+      <h2>Current product and technical maturity</h2>
+
+      <div class="card" style="margin-bottom:1rem;">
+        <h3>Mature MCQ engine (already live)</h3>
+        <ul>
+          <li>URL-based MCQ generation workflows.</li>
+          <li>Manual MCQ creation with rich text, math, images and inline previews.</li>
+          <li>Full MCQ object: question + 4 options (1 correct, 3 distractors) + explanations + “why others are wrong” +
+            references.</li>
+          <li>Reordering, draft mode, versioning, imports and AI-assisted generation.</li>
+        </ul>
+      </div>
+
+      <div class="card" style="margin-bottom:1rem;">
+        <h3>Survey engine with flexible question types</h3>
+        <ul>
+          <li>Single choice, multiple choice, scale and free text questions.</li>
+          <li>Unlimited number of choices per question (unlike MCQs).</li>
+          <li>Configurable scoring and legends for final interpretations.</li>
+          <li>Designed for HR, training feedback, pulse checks and research studies.</li>
+        </ul>
+        <p style="margin-top:1rem; color: var(--muted);"> Behind the scenes, the survey engine already supports dimension-based scoring and profile-style outputs (e.g. stress & coping styles, engagement factors, personality-like profiles). In the current release, surveys are deliberately positioned in a “light” non-clinical mode for self-reflection, HR/L&D insight and research, even though the underlying architecture can support more advanced use cases. <a href="https://about.edutoolsfactory.com/survey-roadmap.html" style="color: rgb(95, 95, 117);">Read more about the survey & profiling roadmap </a></p>
+      </div>
+
+      <div class="card">
+        <h3>Remote API for integration</h3>
+        <ul>
+          <li>Token-protected API endpoints with strict authentication.</li>
+          <li>Application-level request firewall (OWASP-style patterns).</li>
+          <li>Per-user + per-IP rate limiting with HTTP 429 enforcement.</li>
+          <li>Compatible with LMS platforms, HR systems and internal portals.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="investment-highlights">
+      <h2>Investment highlights</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>AI-native assessment core</h3>
+          <p>EduToolsFactory is built from day one around AI-assisted MCQ and survey generation, not as an afterthought
+            on top of legacy systems.</p>
+        </article>
+
+        <article class="card">
+          <h3>Working product, not just a slide deck</h3>
+          <p>Live MCQ &amp; survey engine, URL→MCQ workflows, assignments and analytics are already implemented and used
+            on real content.</p>
+        </article>
+
+        <article class="card">
+          <h3>Offline &amp; on-prem ready</h3>
+          <p>Local AI appliance and Docker-based deployments make the platform suitable for schools, enterprises and
+            government environments with strict data policies.</p>
+        </article>
+
+        <article class="card">
+          <h3>Multi-vertical use cases</h3>
+          <p>Education, corporate training, HR/L&amp;D and research organizations can all use the same stack for exams,
+            skills checks, pulse surveys and opinion studies.</p>
+        </article>
+
+        <article class="card">
+          <h3>Clear, scalable business model</h3>
+          <p>Tiered SaaS plans (Free / Pro / Institution) plus usage-based AI and API billing create a mix of recurring
+            and variable revenue.</p>
+        </article>
+
+        <article class="card">
+          <h3>Founder with deep domain &amp; technical experience</h3>
+          <p>Years of hands-on work in payments, compliance and complex web architectures translate into a pragmatic,
+            security-aware product design.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- DIFFERENTIATORS -->
+    <section id="differentiators">
+      <h2>What makes EduToolsFactory different</h2>
+
+      <div class="grid">
+        <article class="card">
+          <h3>Local AI engine that works fully offline</h3>
+          <p>EduToolsFactory already runs as a personalized, on-premise application using local inference servers and
+            open-source models — ideal for organizations with strict data requirements.</p>
+        </article>
+
+        <article class="card">
+          <h3>Unified MCQ + survey + analytics platform</h3>
+          <p>One system for tests, surveys, scoring, assignments, analytics and secure delivery. No fragmentation across
+            tools.</p>
+        </article>
+
+        <article class="card">
+          <h3>AI-powered test generation from documents</h3>
+          <p>We are developing modules that turn PDFs, Word files and long documents into structured MCQs with
+            distractors, explanations, anchors and references.</p>
+        </article>
+
+        <article class="card">
+          <h3>Digitization of paper tests</h3>
+          <p>Paper or handwritten tests → OCR → cleanup → structured digital MCQs or surveys ready for reuse and
+            analytics.</p>
+        </article>
+      </div>
+    </section>
+
+
+    <!-- R&D ROADMAP -->
+    <section id="rd-focus">
+      <h2>R&amp;D focus and roadmap</h2>
+
+      <div class="timeline">
+        <article class="card" data-step="1">
+          <h3>Document → Assessment pipeline</h3>
+          <p>Automatic conversion of long documents into balanced MCQs or surveys using topic detection and anchor
+            mapping.</p>
+        </article>
+
+        <article class="card" data-step="2">
+          <h3>Paper test digitization</h3>
+          <p>OCR-powered pipeline with AI post-processing for reliable extraction and transformation.</p>
+        </article>
+
+        <article class="card" data-step="3">
+          <h3>AI model ranking for assessment</h3>
+          <p>Evaluating models to determine which produce the best distractors, explanations, references and domain
+            coverage.</p>
+        </article>
+
+        <article class="card" data-step="4">
+          <h3>Offline AI appliance</h3>
+          <p>A ready-to-install hardware/software bundle for local, isolated inference inside corporate or governmental
+            infrastructures.</p>
+        </article>
+      </div>
+    </section>
+
+
+    <!-- MARKET OPPORTUNITY (NEW) -->
+    <section id="market-opportunity">
+      <h2>Market Opportunity</h2>
+      <p>The market for AI-driven assessment, survey automation and educational content transformation is expanding
+        rapidly.</p>
+
+      <ul class="hero-bullets" style="margin-top:1rem;">
+        <li>Global EdTech & smart classrooms: ~$197B in 2025 → ~$350B+ by 2030.</li>
+        <li>EdTech overall expected to reach ~$1.25T by 2034 (CAGR ~20.5%).</li>
+        <li>Assessment software: ~$2.3B in 2025 → ~$10.8B by 2035 (CAGR ~16.5%).</li>
+        <li>AI in education already ~$7.5B in 2025, projected into tens of billions by early 2030s.</li>
+      </ul>
+
+      <p style="margin-top:1rem; color: var(--muted);">
+        EduToolsFactory operates at the intersection of AI-assisted content generation, structured assessment workflows
+        and deep analytics — a segment with accelerating demand from schools, enterprises and research agencies.
+      </p>
+    </section>
+
+
+    <!-- PRICING MODEL (NEW) -->
+    <section id="pricing-model">
+      <h2>SaaS Pricing Model (Planned)</h2>
+      <div class="card">
+        <ul>
+          <li><strong>Free tier</strong> – limited MCQs and survey responses; ideal for individuals.</li>
+          <li><strong>Pro tier</strong> – unlimited tests, higher quotas, bundled AI tokens + overage-based billing.
+          </li>
+          <li><strong>Institution tier</strong> – multi-teacher licensing, central analytics, SSO, on-prem options.</li>
+          <li><strong>API tier</strong> – pay-per-token or per-generation for third-party integrations.</li>
+        </ul>
+      </div>
+      <p style="margin-top:1rem; color: var(--muted);">
+        Pricing tiers and usage rules may be optimized in collaboration with investors as the market shifts - the platform's modular SaaS design allows rapid adaptation to new opportunities, customer behavior and technological change.
+      </p>
+    </section>
+
+
+    <!-- USE OF FUNDS (NEW) -->
+    <section id="use-of-funds">
+      <h2>Use of Funds (Pre-seed €150,000)</h2>
+
+      <div class="card">
+        <h3>€40k – AI model & automation improvements</h3>
+        <ul>
+          <li>Better parsing for PDF/Word documents.</li>
+          <li>Higher-quality distractors, explanations and references.</li>
+          <li>Image-aware MCQ generation.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>€35k – Platform, UX & delivery</h3>
+        <ul>
+          <li>MCQ/survey editor upgrades, assignment flows, analytics dashboards.</li>
+          <li>Scaling secure test delivery for large cohorts.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>€40k – Go-to-market</h3>
+        <ul>
+          <li>SEO, content, ads, partnerships, onboarding programs.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>€20k – Offline/local AI offering</h3>
+        <ul>
+          <li>Packaging a Docker-based offline inference solution for institutions.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>€15k – Legal, compliance & runway</h3>
+        <ul>
+          <li>GDPR, data protection, internal PCI/OWASP-inspired practices.</li>
+          <li>Operational buffer.</li>
+        </ul>
+      </div>
+
+      <p style="margin-top:1rem; color: var(--muted);">
+        The roadmap and allocation may be adjusted in consultation with investors as the market evolves —
+        EduToolsFactory is designed as a flexible, modular platform ready to respond quickly to new opportunities and
+        technological shifts.
+      </p>
+
+      <p style="color: var(--muted); margin-top:0.5rem;">
+        Expected runway: ~9–12 months with parallel execution across AI R&D, product development and initial market
+        entry.
+      </p>
+    </section>
+
+
+    <!-- AUDIENCES -->
+    <section id="audiences">
+      <h2>Built for educators, HR and research professionals</h2>
+      <div class="card">
+        <p>EduToolsFactory serves educators, trainers, HR/L&D teams and research professionals who need structured,
+          repeatable and AI-augmented assessments.</p>
+        <p>MCQs, surveys, analytics, AI generation and secure delivery live in a single platform.</p>
+      </div>
+    </section>
+
+
+    <!-- CTA -->
+    <section class="cta-block">
+      <h2>Ready to explore EduToolsFactory as an investment opportunity?</h2>
+      <p class="section-intro">We are building an AI-native assessment and survey platform with real foundations and a
+        clear roadmap for the next 12 months.</p>
+      <div style="display:flex; gap:1rem; flex-wrap:wrap; justify-content:center;">
+        <a class="btn btn-primary" href="mailto:resolutions.page@gmail.com?subject=Investor%20Deck%20Request">Request
+          investor deck</a>
+        <a class="btn btn-secondary" href="https://calendly.com/edutoolsfactory/intro">Schedule a call</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>EduToolsFactory powers assessment factories for education, training, and HR teams by combining creation,
+      assignment, analytics, and AI authoring.</p>
+    <div class="footer-bar">
+      <div class="footer-links">
+        <a href="https://about.edutoolsfactory.com/features.html">Capabilities</a>
+        <a href="https://about.edutoolsfactory.com/api.html">API</a>
+        <a href="https://edutoolsfactory.com/security">Security &amp; Compliance</a>
+        <a href="https://about.edutoolsfactory.com/contact.html">Contact</a>
+      </div>
+      <div class="footer-actions">
+        <a class="btn btn-primary" href="https://edutoolsfactory.com/investors">Investors</a>
+        <a class="btn btn-secondary" href="https://about.edutoolsfactory.com/survey-roadmap.html">Survey Roadmap</a>
+      </div>
+    </div>
+    <p>© <span id="year"></span> EduToolsFactory</p>
+    <a class="back-top" data-scroll="body">↑ Back to top</a>
+  </footer>
+  <button class="floating-top" id="floating-top" aria-label="Back to top">↑</button>
+
+  <script type="module">
+    const scrollLinks = document.querySelectorAll('a[href^="#"], [data-scroll]');
+    const headerEl = document.querySelector('header');
+    const scrollToTarget = target => {
+      if (!target) return;
+      const offset = headerEl.offsetHeight + 20;
+      const top = target === document.body ? 0 : target.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    };
+    scrollLinks.forEach(link => {
+      const href = link.getAttribute('href');
+      const isInternal = href && href.startsWith('#');
+      if (!isInternal && !link.dataset.scroll) return;
+      link.addEventListener('click', event => {
+        const targetId = link.getAttribute('href') || link.dataset.scroll;
+        if (targetId && targetId.startsWith('#') || targetId === 'body') {
+          event.preventDefault();
+          const target = targetId === 'body' ? document.body : document.querySelector(targetId);
+          scrollToTarget(target);
+        }
+      });
+    });
+
+    const topButton = document.getElementById('floating-top');
+    window.addEventListener('scroll', () => {
+      topButton.classList.toggle('visible', window.scrollY > 400);
+    });
+    topButton.addEventListener('click', () => scrollToTarget(document.body));
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+
+</html>

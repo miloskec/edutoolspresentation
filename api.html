@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>EduToolsFactory – API & Integrations</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(180deg, #0d0620, #1a1440);
+      --accent: #7b5cff;
+      --accent-blue: #3bcbea;
+      --text: #ffffff;
+      --muted: #c6c4d6;
+      --card: #1e1a33;
+      --card-light: #27213f;
+      --shadow: 0 25px 45px rgba(3, 0, 15, 0.6);
+      --border: rgba(123, 92, 255, 0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: rgba(13, 6, 32, 0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(123, 92, 255, 0.2);
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.45);
+    }
+
+    .nav-bar {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem clamp(1rem, 4vw, 2.5rem);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    nav a {
+      padding: 0.4rem 0.7rem;
+      border-radius: 999px;
+      color: var(--muted);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    nav a:hover,
+    nav a.active {
+      background: rgba(123, 92, 255, 0.28);
+      color: var(--text);
+    }
+
+    .btn {
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      border-radius: 999px;
+      padding: 0.7rem 1.3rem;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #08051a;
+      box-shadow: 0 20px 45px rgba(123, 92, 255, 0.35);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid rgba(59, 203, 234, 0.5);
+      color: var(--accent-blue);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: clamp(1.5rem, 4vw, 3rem) clamp(1rem, 4vw, 2.5rem) 4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+
+    section {
+      background: rgba(30, 26, 51, 0.85);
+      border-radius: 28px;
+      padding: clamp(1.5rem, 4vw, 2.8rem);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      scroll-margin-top: 140px;
+    }
+
+    h1,
+    h2 {
+      line-height: 1.25;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 6vw, 3.6rem);
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-intro {
+      color: var(--muted);
+      margin-top: 1rem;
+    }
+
+    .api-hero p {
+      color: var(--muted);
+      margin-top: 1rem;
+    }
+
+    .api-columns {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.2rem;
+      margin-top: 1.5rem;
+    }
+
+    .api-code {
+      background: var(--card);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 1rem;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 0.95rem;
+      color: var(--accent-blue);
+      overflow-x: auto;
+      line-height: 1.4;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .api-endpoints {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 1rem;
+    }
+
+    .endpoint-card {
+      background: var(--card);
+      border-radius: 18px;
+      padding: 1.2rem;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: 0 18px 35px rgba(0, 0, 0, 0.45);
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      color: var(--muted);
+      max-height: 400px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(123, 92, 255, 0.5) rgba(255, 255, 255, 0.05);
+    }
+
+    .endpoint-card::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .endpoint-card::-webkit-scrollbar-thumb {
+      background: rgba(123, 92, 255, 0.6);
+      border-radius: 10px;
+    }
+
+    .endpoint-card::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .endpoint-card strong {
+      color: var(--accent-blue);
+      font-size: 1rem;
+    }
+
+    .api-callout {
+      background: rgba(123, 92, 255, 0.15);
+      border: 1px solid rgba(123, 92, 255, 0.4);
+      border-radius: 20px;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+    }
+
+    
+    footer {
+      background: #0c0f18;
+      padding: 2rem clamp(1rem, 4vw, 2.5rem);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--muted);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      padding: 0;
+      border: none;
+      border-radius: 0;
+      font-weight: 500;
+      box-shadow: none;
+      background: transparent;
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+      text-decoration: underline;
+    }
+
+    .footer-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      margin: 1rem 0;
+    }
+
+    .footer-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .footer-actions .btn {
+      box-shadow: none;
+    }
+
+    .back-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--accent-blue);
+      cursor: pointer;
+    }
+
+    .floating-top {
+      position: fixed;
+      right: 1rem;
+      bottom: 1.5rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: none;
+      background: var(--accent-blue);
+      color: #08051a;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s, opacity 0.3s;
+      z-index: 1000;
+    }
+
+    .floating-top.visible {
+      display: flex;
+    }
+
+    @media (max-width: 768px) {
+      .nav-bar {
+        padding: 0.6rem 0.9rem;
+        gap: 0.5rem;
+      }
+
+      nav ul {
+        gap: 0.4rem;
+        font-size: 0.82rem;
+      }
+
+      .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+      }
+
+      section {
+        scroll-margin-top: 160px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .api-endpoints {
+        grid-template-columns: 1fr;
+      }
+
+      .endpoint-card {
+        min-width: 0;
+        max-height: none;
+        overflow: visible;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="nav-bar">
+      <div class="logo">
+        <img src="images/logo.png" alt="EduToolsFactory logo" width="44" height="44">
+        <span>EduToolsFactory</span>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Features</a></li>
+          <li><a href="index.html#types">Test &amp; Survey Types</a></li>
+          <li><a href="index.html#modes">Modes</a></li>
+          <li><a href="index.html#analytics">Analytics</a></li>
+          <li><a href="index.html#mcq">MCQ</a></li>
+          <li><a href="index.html#demo">Demo</a></li>
+        </ul>
+      </nav>
+      <button class="btn btn-primary" data-scroll="#hero">Get Started</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="hero" class="api-hero">
+      <p style="color: var(--accent); text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.85rem;">
+        Integrations</p>
+      <h1>API &amp; Integrations</h1>
+      <p style="font-style: italic; color: var(--muted);">Connect EduToolsFactory to your own tools, dashboards and
+        automation.</p>
+      <p>The EduToolsFactory Remote API lets you manage tests, surveys and assignments from your own tools or
+        integration layer. You can create and update tests, attach content URLs, fetch MCQ items, and query survey
+        definitions and assignments linked to your organization.</p>
+      <p>All endpoints are protected by token-based access, layered defenses and rate limiting. See
+        <a href="https://edutoolsfactory.com/security" style="color: var(--accent-blue); text-decoration: underline;">Security &amp; Compliance</a>
+        for how we secure delivery.</p>
+    </section>
+
+    <section>
+      <h2>Remote API overview</h2>
+      <div class="api-columns">
+        <ul style="color: var(--muted); padding-left: 1.2rem;">
+          <li>Manage tests (create, update, delete).</li>
+          <li>Attach content URLs used to generate MCQs.</li>
+          <li>Fetch basic test metadata and published MCQ items.</li>
+          <li>Manage surveys and survey questions.</li>
+          <li>Read survey assignments and response counts per assignment.</li>
+        </ul>
+        <pre class="api-code"><code>curl -X GET "https://edutoolsfactory.com/api/remote/tests" \
+  -H "Authorization: Remote YOUR_REMOTE_TOKEN_HERE" \
+  -H "Accept: application/json"</code></pre>
+      </div>
+    </section>
+
+    <section>
+      <h2>Remote endpoints</h2>
+      <div class="api-endpoints">
+        <div class="endpoint-card">
+          <strong>GET /api/remote/tests</strong>
+          <p>List tests, their URLs, and published MCQ items. Requires Remote token; per-user + per-IP rate limiting
+            (429 on abuse).</p>
+          <p style="color: var(--muted); font-size:0.95rem;">Headers: <code>Authorization: Remote &lt;token&gt;</code>
+            </p>
+          <pre class="api-code" style="margin-top:0.4rem;"><code>curl -X GET "https://edutoolsfactory.com/api/remote/tests" \
+  -H "Authorization: Remote &lt;token&gt;" \
+  -H "Accept: application/json"</code></pre>
+        </div>
+        <div class="endpoint-card">
+          <strong>POST /api/remote/tests</strong>
+          <p>Create or update a test and attach URLs. Token-scoped to owner; request firewall filters malicious
+            payloads.</p>
+          <p style="color: var(--muted); font-size:0.95rem;">Headers: <code>Authorization: Remote &lt;token&gt;</code>,
+            <code>Content-Type: application/json</code></p>
+          <pre class="api-code" style="margin-top:0.4rem;"><code>curl -X POST "https://edutoolsfactory.com/api/remote/tests" \
+  -H "Authorization: Remote &lt;token&gt;" \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json" \
+  -d '{ "name": "My Test", "urls": ["https://example.com/a","https://example.com/b"] }'</code></pre>
+        </div>
+        <div class="endpoint-card">
+          <strong>POST /api/remote/tests/{testId}</strong>
+          <p>Add additional URLs to an existing test. Remote token required; rate limiting enforced.</p>
+          <p style="color: var(--muted); font-size:0.95rem;">Headers: <code>Authorization: Remote &lt;token&gt;</code>,
+            <code>Content-Type: application/json</code></p>
+          <pre class="api-code" style="margin-top:0.4rem;"><code>curl -X POST "https://edutoolsfactory.com/api/remote/tests/{testId}" \
+  -H "Authorization: Remote &lt;token&gt;" \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json" \
+  -d '{ "urls": ["https://example.com/a2","https://example.com/b2"] }'</code></pre>
+        </div>
+        <div class="endpoint-card">
+          <strong>DELETE /api/remote/tests/{testId}</strong>
+          <p>Delete a test belonging to the current token owner. Subject to per-user + per-IP throttle (429).</p>
+          <p style="color: var(--muted); font-size:0.95rem;">Headers: <code>Authorization: Remote &lt;token&gt;</code>
+            </p>
+          <pre class="api-code" style="margin-top:0.4rem;"><code>curl -X DELETE "https://edutoolsfactory.com/api/remote/tests/{testId}" \
+  -H "Authorization: Remote &lt;token&gt;" \
+  -H "Accept: application/json"</code></pre>
+        </div>
+        <div class="endpoint-card">
+          <strong>DELETE /api/remote/tests/{testId}/urls/{urlId}</strong>
+          <p>Remove a single URL from a test. Requires Remote token and obeys rate limiting.</p>
+          <p style="color: var(--muted); font-size:0.95rem;">Headers: <code>Authorization: Remote &lt;token&gt;</code>
+            </p>
+          <pre class="api-code" style="margin-top:0.4rem;"><code>curl -X DELETE "https://edutoolsfactory.com/api/remote/tests/{testId}/urls/{urlId}" \
+  -H "Authorization: Remote &lt;token&gt;" \
+  -H "Accept: application/json"</code></pre>
+        </div>
+        <div class="endpoint-card">
+          <strong>GET /api/remote/surveys</strong>
+          <p>List surveys, questions, assignments and response counts. Remote token scoped to owner; 429 returned on
+            abuse.</p>
+          <p style="color: var(--muted); font-size:0.95rem;">Headers: <code>Authorization: Remote &lt;token&gt;</code>
+            </p>
+          <pre class="api-code" style="margin-top:0.4rem;"><code>curl -X GET "https://edutoolsfactory.com/api/remote/surveys" \
+  -H "Authorization: Remote &lt;token&gt;" \
+  -H "Accept: application/json"</code></pre>
+        </div>
+        <div class="endpoint-card">
+          <strong>/remote/exam/{slug}</strong>
+          <p>Public exam delivery (GET show/state/full, POST answer/skip/finish). Protected by multiple layers (firewall
+            + rate limits).</p>
+          <p style="color: var(--muted); font-size:0.95rem;">Headers: <code>Authorization: Remote &lt;token&gt;</code>
+            for managed flows; <code>X-Session-Token</code> for per-attempt state/answer/finish; <code>Accept:
+              application/json</code> when posting answers.</p>
+          <pre class="api-code" style="margin-top:0.4rem;"><code>curl -X GET "https://edutoolsfactory.com/api/remote/exam/{slug}/state" \
+  -H "Authorization: Remote &lt;token&gt;" \
+  -H "X-Session-Token: &lt;session_token&gt;" \
+  -H "Accept: application/json"
+
+curl -X POST "https://edutoolsfactory.com/api/remote/exam/{slug}/answer" \
+  -H "Authorization: Remote &lt;token&gt;" \
+  -H "X-Session-Token: &lt;session_token&gt;" \
+  -H "Accept: application/json" \
+  -d '{ "mcq_item_id": 971, "answer_key": "A" }'</code></pre>
+        </div>
+        <div class="endpoint-card">
+          <strong>/remote/survey/{slug}</strong>
+          <p>Public survey delivery (GET show/full, POST answer/finish). Same layered protections; used for taking
+            surveys via browser or extension links.</p>
+          <p style="color: var(--muted); font-size:0.95rem;">Headers: <code>Authorization: Remote &lt;token&gt;</code>
+            for managed flows; <code>X-Session-Token</code> when continuing a session; <code>Accept:
+              application/json</code> for submits.</p>
+          <pre class="api-code" style="margin-top:0.4rem;"><code>curl -X GET "https://edutoolsfactory.com/api/remote/survey/{slug}/full" \
+  -H "Authorization: Remote &lt;token&gt;" \
+  -H "X-Session-Token: &lt;session_token&gt;" \
+  -H "Accept: application/json"
+
+curl -X POST "https://edutoolsfactory.com/api/remote/survey/{slug}/answer" \
+  -H "Authorization: Remote &lt;token&gt;" \
+  -H "X-Session-Token: &lt;session_token&gt;" \
+  -H "Accept: application/json" \
+  -d '{ "question_id": 5, "answer": "C" }'</code></pre>
+        </div>
+      </div>
+      <p class="section-intro" style="margin-top:1rem;">All endpoints respect token scoping (where applicable) and
+        layered protections (firewall + per-IP/per-user limits). See <a href="https://edutoolsfactory.com/security"
+          style="color: var(--accent-blue); text-decoration: underline;">Security &amp; Compliance</a> for details.</p>
+    </section>
+
+    <section>
+      <h2>Authentication &amp; rate limiting</h2>
+      <p>All Remote API calls must include an <code>Authorization: Remote &lt;token&gt;</code> header. The token is
+        scoped to a single EduToolsFactory account; all queries are restricted to data owned by that account. Layered
+        protections (firewall + per-IP/per-user rate limits) apply across endpoints. For more, see
+        <a href="https://edutoolsfactory.com/security" style="color: var(--accent-blue); text-decoration: underline;">Security &amp; Compliance</a>.
+      </p>
+    </section>
+
+    <!-- <section class="api-callout">
+      <h2>Postman collection</h2>
+      <p class="section-intro" style="color:#efeefe;">You can start exploring the Remote API using a ready-made Postman collection that contains example requests for tests and surveys.</p>
+      <a href="downloads/edutoolsfactory-remote-api.postman_collection.json" class="btn btn-primary" download style="margin-top:1rem;">Download Remote API Postman collection</a>
+    </section> -->
+  </main>
+
+  <footer>
+    <p>EduToolsFactory powers assessment factories for education, training, and HR teams by combining creation,
+      assignment, analytics, and AI authoring.</p>
+    <div class="footer-bar">
+      <div class="footer-links">
+        <a href="features.html">Capabilities</a>
+        <a href="api.html">API</a>
+        <a href="https://edutoolsfactory.com/security">Security &amp; Compliance</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-actions">
+        <a class="btn btn-secondary" href="https://edutoolsfactory.com/investors">Investors</a>
+        <a class="btn btn-secondary" href="survey-roadmap.html">Survey Roadmap</a>
+      </div>
+    </div>
+    <p>© <span id="year"></span> EduToolsFactory</p>
+    <a class="back-top" data-scroll="body">↑ Back to top</a>
+  </footer>
+  <button class="floating-top" id="floating-top" aria-label="Back to top">↑</button>
+
+  <script type="module">
+    const scrollLinks = document.querySelectorAll('a[href^="#"], [data-scroll]');
+    const headerEl = document.querySelector('header');
+    const scrollToTarget = target => {
+      if (!target) return;
+      const offset = headerEl.offsetHeight + 20;
+      const top = target === document.body ? 0 : target.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    };
+    scrollLinks.forEach(link => {
+      const href = link.getAttribute('href');
+      const isInternal = href && href.startsWith('#');
+      if (!isInternal && !link.dataset.scroll) return;
+      link.addEventListener('click', event => {
+        const targetId = link.getAttribute('href') || link.dataset.scroll;
+        if (targetId && targetId.startsWith('#') || targetId === 'body') {
+          event.preventDefault();
+          const target = targetId === 'body' ? document.body : document.querySelector(targetId);
+          scrollToTarget(target);
+        }
+      });
+    });
+
+    const topButton = document.getElementById('floating-top');
+    window.addEventListener('scroll', () => {
+      topButton.classList.toggle('visible', window.scrollY > 400);
+    });
+    topButton.addEventListener('click', () => scrollToTarget(document.body));
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+
+</html>

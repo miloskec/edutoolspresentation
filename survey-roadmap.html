@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>EduToolsFactory – Survey &amp; Profiling Roadmap</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(180deg, #0d0620, #1a1440);
+      --accent: #7b5cff;
+      --accent-blue: #3bcbea;
+      --text: #ffffff;
+      --muted: #c6c4d6;
+      --card: #1e1a33;
+      --card-light: #27213f;
+      --shadow: 0 25px 45px rgba(3, 0, 15, 0.6);
+      --border: rgba(123, 92, 255, 0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: rgba(13, 6, 32, 0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(123, 92, 255, 0.2);
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.45);
+    }
+
+    .nav-bar {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem clamp(1rem, 4vw, 2.5rem);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    nav a {
+      padding: 0.4rem 0.7rem;
+      border-radius: 999px;
+      color: var(--muted);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    nav a:hover,
+    nav a.active {
+      background: rgba(123, 92, 255, 0.28);
+      color: var(--text);
+    }
+
+    .btn {
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      border-radius: 999px;
+      padding: 0.7rem 1.3rem;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #08051a;
+      box-shadow: 0 20px 45px rgba(123, 92, 255, 0.35);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid rgba(59, 203, 234, 0.5);
+      color: var(--accent-blue);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: clamp(1.5rem, 4vw, 3rem) clamp(1rem, 4vw, 2.5rem) 4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+
+    section {
+      background: rgba(30, 26, 51, 0.85);
+      border-radius: 28px;
+      padding: clamp(1.5rem, 4vw, 2.8rem);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      scroll-margin-top: 140px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      line-height: 1.25;
+    }
+
+    h1 {
+      font-size: clamp(2.3rem, 5vw, 3.5rem);
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      margin-bottom: 0.75rem;
+    }
+
+    h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: var(--accent-blue);
+    }
+
+    .section-intro {
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-bullets {
+      list-style: disc;
+      padding-left: 1.3rem;
+      color: var(--muted);
+      margin-top: 0.75rem;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 18px;
+      padding: 1.4rem;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: 0 18px 35px rgba(0, 0, 0, 0.45);
+      color: var(--muted);
+    }
+
+    .card ul {
+      padding-left: 1.2rem;
+      line-height: 1.5;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+
+    .timeline .card {
+      position: relative;
+    }
+
+    .timeline .card::before {
+      content: attr(data-step);
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .cta-block {
+      text-align: center;
+      display: grid;
+      gap: 1rem;
+    }
+
+    .cta-block .btn {
+      width: fit-content;
+      margin: 0 auto;
+    }
+
+    footer {
+      background: #0c0f18;
+      padding: 2rem clamp(1rem, 4vw, 2.5rem);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--muted);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      padding: 0;
+      border: none;
+      border-radius: 0;
+      font-weight: 500;
+      box-shadow: none;
+      background: transparent;
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+      text-decoration: underline;
+    }
+
+    .footer-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      margin: 1rem 0;
+    }
+
+    .footer-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .footer-actions .btn {
+      box-shadow: none;
+    }
+
+    .back-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--accent-blue);
+      cursor: pointer;
+    }
+
+    .floating-top {
+      position: fixed;
+      right: 1rem;
+      bottom: 1.5rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: none;
+      background: var(--accent-blue);
+      color: #08051a;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s, opacity 0.3s;
+      z-index: 1000;
+    }
+
+    .floating-top.visible {
+      display: flex;
+    }
+
+    @media (max-width: 768px) {
+      .nav-bar {
+        padding: 0.6rem 0.9rem;
+        gap: 0.5rem;
+      }
+
+      nav ul {
+        gap: 0.4rem;
+        font-size: 0.82rem;
+      }
+
+      .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+      }
+
+      section {
+        scroll-margin-top: 160px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="nav-bar">
+      <div class="logo">
+        <img src="images/logo.png" alt="EduToolsFactory logo" width="44" height="44">
+        <span>EduToolsFactory</span>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Features</a></li>
+          <li><a href="index.html#types">Test &amp; Survey Types</a></li>
+          <li><a href="index.html#modes">Modes</a></li>
+          <li><a href="index.html#analytics">Analytics</a></li>
+          <li><a href="index.html#mcq">MCQ</a></li>
+          <li><a href="index.html#demo">Demo</a></li>
+        </ul>
+      </nav>
+      <button class="btn btn-primary" data-scroll="#hero-roadmap">Get Started</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="hero-roadmap">
+      <p style="color: var(--accent); text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.85rem;">
+        Roadmap briefing
+      </p>
+      <h1>Survey &amp; Profiling Roadmap</h1>
+      <p class="section-intro">
+        EduToolsFactory already ships a dimension-based survey engine and is building toward more advanced, regulated
+        use
+        cases with qualified partners.
+      </p>
+      <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1.2rem;">
+        <a class="btn btn-primary" href="mailto:resolutions.page@gmail.com?subject=Survey%20Roadmap%20Follow-up">
+          Talk to the team
+        </a>
+        <a class="btn btn-secondary" href="investors.html">
+          Back to investor briefing
+        </a>
+      </div>
+    </section>
+
+    <section id="status">
+      <h2>Current status – "light mode" survey engine</h2>
+      <div class="card">
+        <p>
+          The survey engine supports Likert-style questions, multiple dimensions per survey (e.g., stress &amp; coping
+          styles, engagement, personality-like profiles), weighted contributions of each answer option to one or more
+          dimensions, and reverse-scored items plus control questions.
+        </p>
+        <p>
+          Outputs are profile-like summaries with dimension scores and concise interpretations, intended for
+          self-reflection, team and organizational insight (HR/L&amp;D), and research - style instruments. Results are
+          intended for self-reflection, team and organizational insight, and research - not for diagnosis or automated
+          clinical decisions.
+        </p>
+        <p>
+          This is a deliberate "light mode" positioning: it is not a clinical or diagnostic tool, does not assign
+          clinical labels, and is designed for non-clinical contexts.
+        </p>
+      </div>
+    </section>
+
+    <section id="phase-1">
+      <h2>Phase 1 – Professional-grade non-clinical surveys (HR, L&amp;D, research)</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Product hardening</h3>
+          <ul>
+            <li>Richer survey templates (engagement, burnout risk, training feedback, pulse surveys).</li>
+            <li>Improved dimension legends and profile summaries.</li>
+            <li>Entity-level analytics across teams, departments and cohorts.</li>
+            <li>Exportable reports (PDF/CSV) for HR leaders and educators.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Governance &amp; safety</h3>
+          <ul>
+            <li>Clear non-clinical disclaimers across instruments and reports.</li>
+            <li>Configuration that prevents accidental clinical wording.</li>
+            <li>Audit logs for who created and changed instruments.</li>
+          </ul>
+        </article>
+      </div>
+      <p style="margin-top:1rem; color: var(--muted);">
+        Phase 1 keeps surveys firmly in the non-clinical domain but makes them production-ready for organizations.
+      </p>
+    </section>
+
+    <section id="phase-2">
+      <h2>Phase 2 – Clinical pre-screening (pre-filter for professionals)</h2>
+      <p style="margin-top:1rem;margin-bottom:0.3rem; color: var(--muted);padding: 5px;">
+        Pursued only with qualified partners and under regulatory guidance. EduToolsFactory would act as a
+        pre-screening
+        layer that flags elevated risk or "needs professional review", but never replaces clinical judgment.
+      </p>
+      <div class="card">
+        <ul>
+          <li><strong>Validated instruments and protocols:</strong> Standard, validated questionnaires for specific
+            populations with documented reliability and validity.</li>
+          <li><strong>Normative data and evidence-based cut-offs:</strong> Norm datasets (percentiles, T-scores,
+            thresholds) instead of heuristic rules.</li>
+          <li><strong>Governance and professional oversight:</strong> Licensed psychologists/psychiatrists and ethics
+            boards defining instruments, labels and follow-up paths.</li>
+          <li><strong>Consent and user experience for sensitive data:</strong> Clear informed-consent flows and explicit
+            explanations of what is measured and how results will be used.</li>
+          <li><strong>Platform safeguards:</strong> Role-based access so only authorized professionals see sensitive
+            summaries; end-users see simplified, non-alarming language.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="phase-3">
+      <h2>Phase 3 – Decision-support tools for professionals (optional, long-term)</h2>
+      <p style="margin-top:1rem;margin-bottom:0.3rem; color: var(--muted);padding: 5px;">
+        An optional, longer-term path that depends on domain partnerships, regulatory feasibility and investor appetite
+        for a clinical vertical.
+      </p>
+      <div class="card">
+        <ul>
+          <li>Instrument catalog and norm libraries maintained with clinical partners.</li>
+          <li>Clinician-focused dashboards with drill-down, history and professional reports.</li>
+          <li>Regulatory alignment with applicable medical-device and local assessment laws.</li>
+          <li>Strict separation of roles: EduToolsFactory as a structured data and workflow layer; decisions remain with
+            licensed professionals.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="enablers">
+      <h2>Cross-cutting technical enablers</h2>
+      <div class="card">
+        <ul>
+          <li>Role-based access control and tenant isolation for sensitive surveys.</li>
+          <li>Encryption in transit and at rest for assessment data.</li>
+          <li>Detailed audit logs for instrument creation, edits and profile views.</li>
+          <li>Data-retention policies and EU-friendly data residency options.</li>
+          <li>Offline/on-prem deployments for institutions with strict data policies.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="investor-takeaway">
+      <h2>Investor takeaway</h2>
+      <p style="margin-top:1rem;margin-bottom:0.3rem; color: var(--muted);padding: 5px;">
+        The survey engine is fully functional today and actively usable in "light mode" for HR, education, training and
+        general research. Even in its current form, the platform reliably supports multi-dimension scoring, legends,
+        domain-specific interpretations and flexible questionnaire structures - making it immediately deployable in
+        real-world environments.
+      </p>
+      <div class="card">
+        <p style="margin-bottom:0.3rem; color: var(--muted);padding: 5px;">
+          At the same time, the underlying architecture was intentionally designed for upward scalability. With the
+          right
+          expert partners and structured feedback loops, the existing foundation can evolve into significantly more
+          advanced capabilities, including:
+        </p>
+        <ul>
+          <li>
+            <strong style="color: var(--accent-blue);">Regulated pre-screening workflows</strong><br>
+            (e.g. automated early-risk assessment for burnout, early stress indicators in employees, or candidate
+            pre-screening before interviews based on validated protocols)
+          </li>
+          <li>
+            <strong style="color: var(--accent-blue);">Decision-support models requiring clinical or psychological oversight</strong><br>
+            (e.g. models that suggest to HR "candidates with this profile have a higher probability of success in this
+            role", or tools for coaches/counselors that highlight potential learning difficulties, adaptation issues, or
+            team-dynamics risks)
+          </li>
+          <li>
+            <strong style="color: var(--accent-blue);">Validated scoring norms and population-specific benchmarks</strong><br>
+            (e.g. comparing a person's results with norms for the EU, a specific region, industry, or age group-similar
+            to professional psychometric tests that provide percentiles, not just raw scores)
+          </li>
+          <li>
+            <strong style="color: var(--accent-blue);">Reliability/consistency metrics and longitudinal tracking</strong><br>
+            (e.g. tracking an employee's progress over several months, detecting drops in performance or increases in
+            stress, checking whether responses remain stable over time-used in corporate wellness and development
+            programs)
+          </li>
+        </ul>
+
+      </div>
+      <p style="margin-top:1rem;margin-bottom:0.3rem; color: var(--muted);padding: 5px;">
+        The roadmap clearly separates what is already delivered and usable today from features that would require
+        formal
+        medical/psychological governance to meet regulatory or ethical standards. This ensures that growth is both
+        responsible and strategically aligned - while preserving a very large opportunity space for future expansion
+        built on the strong technical base that already exists.
+      </p>
+
+      <div style="display:flex; gap:1rem; flex-wrap:wrap; justify-content:center;">
+        <a class="btn btn-primary" href="mailto:resolutions.page@gmail.com?subject=Survey%20Roadmap%20Follow-up">
+          Discuss roadmap
+        </a>
+        <a class="btn btn-secondary" href="https://calendly.com/edutoolsfactory/intro">
+          Schedule a call
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>EduToolsFactory powers assessment factories for education, training, and HR teams by combining creation,
+      assignment, analytics, and AI authoring.</p>
+    <div class="footer-bar">
+      <div class="footer-links">
+        <a href="features.html">Capabilities</a>
+        <a href="api.html">API</a>
+        <a href="https://edutoolsfactory.com/security">Security &amp; Compliance</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-actions">
+        <a class="btn btn-secondary" href="investors.html">Investors</a>
+        <a class="btn btn-primary" href="survey-roadmap.html">Survey Roadmap</a>
+      </div>
+    </div>
+    <p>© <span id="year"></span> EduToolsFactory</p>
+    <a class="back-top" data-scroll="body">↑ Back to top</a>
+  </footer>
+  <button class="floating-top" id="floating-top" aria-label="Back to top">↑</button>
+
+  <script type="module">
+    const scrollLinks = document.querySelectorAll('a[href^="#"], [data-scroll]');
+    const headerEl = document.querySelector('header');
+    const scrollToTarget = target => {
+      if (!target) return;
+      const offset = headerEl.offsetHeight + 20;
+      const top = target === document.body ? 0 : target.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    };
+    scrollLinks.forEach(link => {
+      const href = link.getAttribute('href');
+      const isInternal = href && href.startsWith('#');
+      if (!isInternal && !link.dataset.scroll) return;
+      link.addEventListener('click', event => {
+        const targetId = link.getAttribute('href') || link.dataset.scroll;
+        if (targetId && targetId.startsWith('#') || targetId === 'body') {
+          event.preventDefault();
+          const target = targetId === 'body' ? document.body : document.querySelector(targetId);
+          scrollToTarget(target);
+        }
+      });
+    });
+
+    const topButton = document.getElementById('floating-top');
+    window.addEventListener('scroll', () => {
+      topButton.classList.toggle('visible', window.scrollY > 400);
+    });
+    topButton.addEventListener('click', () => scrollToTarget(document.body));
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+
+</html>

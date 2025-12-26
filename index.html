@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>EduToolsFactory – Assessment & Survey Intelligence Platform</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(180deg, #0d0620, #1a1440);
+      --accent: #7b5cff;
+      --accent-blue: #3bcbea;
+      --text: #ffffff;
+      --muted: #c6c4d6;
+      --card: #1e1a33;
+      --card-light: #27213f;
+      --shadow: 0 25px 45px rgba(3, 0, 15, 0.6);
+      --border: rgba(123, 92, 255, 0.25);
+      --success: #27dda0;
+      --warning: #ffc65c;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: rgba(13, 6, 32, 0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(123, 92, 255, 0.2);
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.45);
+    }
+
+    .nav-bar {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem clamp(1rem, 4vw, 2.5rem);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    nav a {
+      padding: 0.4rem 0.6rem;
+      border-radius: 999px;
+      color: var(--muted);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    nav a:hover {
+      background: rgba(90, 126, 168, 0.2);
+      color: var(--text);
+    }
+
+    .btn {
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      border-radius: 999px;
+      padding: 0.7rem 1.3rem;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #08051a;
+      box-shadow: 0 20px 45px rgba(123, 92, 255, 0.35);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid rgba(59, 203, 234, 0.5);
+      color: var(--accent-blue);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: clamp(1.5rem, 4vw, 3rem) clamp(1rem, 4vw, 2.5rem) 4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 3.2rem;
+    }
+
+    section {
+      background: rgba(30, 26, 51, 0.85);
+      border-radius: 28px;
+      padding: clamp(1.5rem, 4vw, 2.8rem);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      scroll-margin-top: 150px;
+    }
+
+    .hero {
+      display: grid;
+      gap: 2rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      color: var(--muted);
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .hero-bullets {
+      list-style: none;
+      margin-top: 1rem;
+      display: grid;
+      gap: 0.35rem;
+      color: var(--muted);
+    }
+
+    .dashboard {
+      background: rgba(32, 38, 56, 0.9);
+      border-radius: 24px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+    }
+
+    .dash-card {
+      background: rgba(15, 17, 27, 0.85);
+      border-radius: 18px;
+      padding: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .dash-value {
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+
+    .mini-chart {
+      height: 38px;
+      display: flex;
+      gap: 0.4rem;
+      align-items: flex-end;
+    }
+
+    .mini-chart span {
+      flex: 1;
+      background: linear-gradient(135deg, rgba(123, 92, 255, 0.8), rgba(59, 203, 234, 0.75));
+      border-radius: 6px;
+      box-shadow: 0 6px 15px rgba(59, 203, 234, 0.3);
+    }
+
+    .trusted-strip {
+      text-align: center;
+      margin-top: 1.5rem;
+      background: rgba(15, 17, 27, 0.7);
+      border-radius: 999px;
+      padding: 0.7rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      margin-bottom: 0.7rem;
+    }
+
+    .section-intro {
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .grid-types {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .type-card,
+    .card {
+      background: var(--card);
+      border-radius: 18px;
+      padding: 1.2rem;
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
+    }
+
+    .type-card ul {
+      padding-left: 1.2rem;
+      color: var(--muted);
+    }
+
+    .assignment {
+      display: grid;
+      gap: 1.2rem;
+    }
+
+    .flow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      align-items: center;
+      color: var(--muted);
+    }
+
+    .flow span {
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .modes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .mode-card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 1.2rem;
+      border: 1px solid var(--border);
+    }
+
+    .mode-card ul {
+      padding-left: 1.2rem;
+      color: var(--muted);
+    }
+
+    .counters {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+    }
+
+    .counter {
+      background: rgba(15, 17, 27, 0.8);
+      border-radius: 16px;
+      padding: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      text-align: center;
+    }
+
+    .filter-bar {
+      margin-bottom: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 999px;
+      padding: 0.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .filter-bar button {
+      flex: 1;
+      min-width: 120px;
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 0.45rem 0.9rem;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+    }
+
+    .filter-bar button.active,
+    .filter-bar button:hover {
+      background: rgba(90, 126, 168, 0.3);
+      color: var(--text);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+    }
+
+    .analytics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+
+    .analytics-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 1.2rem;
+    }
+
+    .progress {
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
+      margin-top: 0.6rem;
+      overflow: hidden;
+    }
+
+    .progress span {
+      display: block;
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-blue));
+    }
+
+    .mcq-card {
+      background: var(--card);
+      border-radius: 20px;
+      padding: 1.5rem;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .mcq-options {
+      display: grid;
+      gap: 0.75rem;
+      margin: 1rem 0;
+    }
+
+    .mcq-options label {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.03);
+      cursor: pointer;
+      transition: border 0.3s, background 0.3s;
+    }
+
+    .mcq-options input {
+      accent-color: var(--accent);
+    }
+
+    .mcq-options label.correct {
+      border-color: var(--success);
+      background: rgba(46, 204, 113, 0.18);
+    }
+
+    .mcq-options label.incorrect {
+      border-color: var(--warning);
+      background: rgba(249, 179, 71, 0.2);
+    }
+
+    .video-placeholder {
+      background: rgba(30, 26, 51, 0.9);
+      color: var(--text);
+      border-radius: 24px;
+      padding: 2rem;
+      text-align: center;
+      border: 1px solid rgba(123, 92, 255, 0.3);
+      display: grid;
+      place-items: center;
+      min-height: 220px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .video-placeholder {
+      border-radius: 24px;
+      padding: 1.5rem;
+      background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.4));
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.55);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .video-frame {
+      position: relative;
+      width: 100%;
+      max-width: 640px;
+      aspect-ratio: 16 / 9;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06);
+    }
+
+    .video-frame iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .play-button {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      border: 2px solid rgba(123, 92, 255, 0.6);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 0 28px rgba(123, 92, 255, 0.4);
+    }
+
+    .play-button::after {
+      content: '';
+      border-left: 18px solid var(--accent);
+      border-top: 11px solid transparent;
+      border-bottom: 11px solid transparent;
+      margin-left: 4px;
+    }
+
+    .split {
+      display: grid;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .form-grid input,
+    .form-grid select {
+      width: 100%;
+      background: rgba(14, 10, 26, 0.8);
+      color: var(--text);
+      border-radius: 12px;
+      padding: 0.75rem 1rem;
+      border: 1px solid rgba(123, 92, 255, 0.3);
+    }
+
+    
+    footer {
+      background: #0c0f18;
+      padding: 2rem clamp(1rem, 4vw, 2.5rem);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--muted);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      padding: 0;
+      border: none;
+      border-radius: 0;
+      font-weight: 500;
+      box-shadow: none;
+      background: transparent;
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+      text-decoration: underline;
+    }
+
+    .footer-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      margin: 1rem 0;
+    }
+
+    .footer-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .footer-actions .btn {
+      box-shadow: none;
+    }
+
+    .back-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--accent-blue);
+      cursor: pointer;
+    }
+
+    .floating-top {
+      position: fixed;
+      right: 1rem;
+      bottom: 1.5rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: none;
+      background: var(--accent-blue);
+      color: #0f1018;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s, opacity 0.3s;
+      z-index: 1000;
+    }
+
+    .floating-top.visible {
+      display: flex;
+    }
+
+    .floating-top:hover {
+      transform: translateY(-3px);
+    }
+
+    @media (min-width: 900px) {
+      .hero {
+        grid-template-columns: 1.1fr 1fr;
+      }
+
+      .assignment {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .split {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-bar {
+        padding: 0.45rem 0.8rem;
+        gap: 0.4rem;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .logo span {
+        font-size: 0.92rem;
+      }
+
+      nav ul {
+        gap: 0.35rem;
+        font-size: 0.78rem;
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .btn {
+        padding: 0.4rem 0.85rem;
+        font-size: 0.82rem;
+      }
+
+      .hero h1 {
+        font-size: 1.85rem;
+      }
+
+      section {
+        scroll-margin-top: 175px;
+      }
+    }
+  </style>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [["\\(", "\\)"]],
+        displayMath: [["\\[", "\\]"]],
+      },
+      svg: {
+        fontCache: "global",
+      },
+    };
+  </script>
+  <script id="mathjax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" defer></script>
+</head>
+
+<body>
+  <header>
+    <div class="nav-bar">
+      <div class="logo">
+        <img src="images/logo.png" alt="EduToolsFactory logo" width="44" height="44">
+        <span>EduToolsFactory</span>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#types">Test &amp; Survey Types</a></li>
+          <li><a href="#modes">Modes</a></li>
+          <li><a href="#analytics">Analytics</a></li>
+          <li><a href="#mcq">MCQ</a></li>
+          <li><a href="#demo">Demo</a></li>
+        </ul>
+      </nav>
+      <button class="btn btn-primary" data-scroll="#demo">Get Started</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="features">
+      <div>
+        <p style="color: var(--accent); text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.85rem;">
+          Assessments · Surveys · Analytics</p>
+        <h1>Build, assign, and analyze every exam and survey in one place.</h1>
+        <p>EduToolsFactory is your all-in-one platform for high-stakes exams, quick learning checks, and anonymous
+          surveys – with real-time stats for individuals, teams, and organizations.</p>
+        <div class="hero-buttons">
+          <button class="btn btn-primary" data-scroll="#demo">Create your first test</button>
+          <button class="btn btn-secondary" data-scroll="#analytics">See analytics demo</button>
+        </div>
+        <ul class="hero-bullets">
+          <li>• Exam &amp; learning modes baked in</li>
+          <li>• Assign to groups, cohorts, or anonymous audiences</li>
+          <li>• Track opens, starts, completions, and scores live</li>
+          <li>• AI-generated tests and surveys from any topic</li>
+        </ul>
+      </div>
+      <div class="dashboard">
+        <div class="dash-card">
+          <span>Open tests (landing)</span>
+          <div class="dash-value" data-dash="open">248</div>
+          <div class="mini-chart">
+            <span style="height:20px"></span>
+            <span style="height:32px"></span>
+            <span style="height:18px"></span>
+            <span style="height:34px"></span>
+          </div>
+        </div>
+        <div class="dash-card">
+          <span>Started in exam mode</span>
+          <div class="dash-value" data-dash="start">184</div>
+          <div class="mini-chart">
+            <span style="height:24px"></span>
+            <span style="height:30px"></span>
+            <span style="height:20px"></span>
+            <span style="height:28px"></span>
+          </div>
+        </div>
+        <div class="dash-card">
+          <span>Finished in exam mode</span>
+          <div class="dash-value" data-dash="complete">162</div>
+          <div class="mini-chart">
+            <span style="height:15px"></span>
+            <span style="height:25px"></span>
+            <span style="height:18px"></span>
+            <span style="height:24px"></span>
+          </div>
+        </div>
+        <div class="dash-card">
+          <span>Learning mode sessions</span>
+          <div class="dash-value" data-dash="learn">312</div>
+          <div class="mini-chart">
+            <span style="height:18px"></span>
+            <span style="height:26px"></span>
+            <span style="height:32px"></span>
+            <span style="height:34px"></span>
+          </div>
+        </div>
+      </div>
+      <!--       <div class="trusted-strip">
+        <span>Trusted by:</span>
+        <span>Faculty A</span>
+        <span>Training Center B</span>
+        <span>HR Lab C</span>
+        <span>Academy D</span>
+      </div> -->
+    </section>
+
+    <section id="types">
+      <h2>What kind of assessments can you build?</h2>
+      <p class="section-intro">Mix and match exam-grade MCQs, rapid learning pulses, and anonymous surveys. Assign to
+        individuals, groups, cohorts, or open audiences.</p>
+      <div class="grid-types">
+        <div class="type-card">
+          <div>📘 Exam-style MCQ tests</div>
+          <ul>
+            <li>Timed sections &amp; proctor mode</li>
+            <li>Randomized options &amp; scoring</li>
+            <li>Secure delivery to cohorts</li>
+          </ul>
+        </div>
+        <div class="type-card">
+          <div>🧠 Practice / learning tests</div>
+          <ul>
+            <li>Immediate feedback &amp; hints</li>
+            <li>Track improvement</li>
+            <li>Assign to coaching pods</li>
+          </ul>
+        </div>
+        <div class="type-card">
+          <div>🕵️ Anonymous satisfaction surveys</div>
+          <ul>
+            <li>Masked respondents</li>
+            <li>Landing stats for opens</li>
+            <li>Pulse or evergreen loops</li>
+          </ul>
+        </div>
+        <div class="type-card">
+          <div>🔄 360° feedback forms</div>
+          <ul>
+            <li>Role-based flows</li>
+            <li>Manager &amp; peer loops</li>
+            <li>Aggregate insights</li>
+          </ul>
+        </div>
+        <div class="type-card">
+          <div>🏭 Onboarding / HR quizzes</div>
+          <ul>
+            <li>Automated reminders</li>
+            <li>Compliance tracking</li>
+            <li>Reusable templates</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="assignment">
+      <h2>Assign to people, teams, or anonymous audiences.</h2>
+      <div class="assignment">
+        <div class="flow" aria-label="Assignment flow">
+          <span>Author</span><span>→</span><span>Group / Cohort</span><span>→</span><span>Test
+            Link</span><span>→</span><span>Participant</span><span>→</span><span>Results</span>
+        </div>
+        <div class="section-intro" style="margin:0;">
+          <p>Assign tests to single users or synced groups, and share anonymous survey links. Manage open/close windows
+            and reminders from a single dashboard.</p>
+          <p>Landing stats show how many opened, started, and finished. Switch between Learning Mode and Exam Mode
+            without reauthoring questions.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="modes">
+      <h2>Two modes: Exam and Learning.</h2>
+      <div class="modes">
+        <div class="mode-card">
+          <h3>Exam Mode</h3>
+          <ul>
+            <li>Timed, strict start/finish windows.</li>
+            <li>No answers shown until submission.</li>
+            <li>Hard attempts for official certifications.</li>
+            <li>Secure proctor-ready delivery.</li>
+          </ul>
+        </div>
+        <div class="mode-card">
+          <h3>Learning Mode</h3>
+          <ul>
+            <li>Instant feedback after each question.</li>
+            <li>Explains correct &amp; incorrect options.</li>
+            <li>Iterative attempts to improve mastery.</li>
+            <li>Perfect for coaching and L&amp;D.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="counters">
+        <div class="counter">
+          <div>Open tests</div>
+          <strong data-metric="open">248</strong>
+        </div>
+        <div class="counter">
+          <div>Started</div>
+          <strong data-metric="start">184</strong>
+        </div>
+        <div class="counter">
+          <div>Completed</div>
+          <strong data-metric="complete">162</strong>
+        </div>
+        <div class="counter">
+          <div>Average score</div>
+          <strong data-metric="score">86%</strong>
+        </div>
+      </div>
+    </section>
+
+    <section id="analytics">
+      <h2>Actionable analytics at every level.</h2>
+      <p class="section-intro">Slice data by test, team, or region. Pinpoint where learners stall, which cohorts need
+        attention, and how surveys trend over time.</p>
+      <div class="filter-bar">
+        <button class="active" data-filter="week">Last 7 days</button>
+        <button data-filter="month">Last 30 days</button>
+        <button data-filter="quarter">Quarter</button>
+      </div>
+      <div class="analytics-grid">
+        <div class="card">
+          <strong>Per-test overview</strong>
+          <p class="muted">Open / started / completed</p>
+          <div style="margin-top: 1rem;">
+            <div>Open: <strong data-stat="open">248</strong></div>
+            <div>Started: <strong data-stat="start">184</strong></div>
+            <div>Completed: <strong data-stat="complete">162</strong></div>
+          </div>
+        </div>
+        <div class="card">
+          <strong>Score distribution</strong>
+          <div class="progress" style="margin-top: 1rem;">
+            <span data-stat="score" style="width: 80%;"></span>
+          </div>
+          <p style="margin-top: 0.75rem; color: var(--muted);">80% of attempts above 70%</p>
+        </div>
+        <div class="card">
+          <strong>Time spent per test</strong>
+          <p style="margin-top: 0.75rem; color: var(--muted);">Average: <span data-stat="time">42</span> minutes</p>
+          <div class="mini-chart" style="margin-top: 0.75rem;">
+            <span style="height: 18px;"></span>
+            <span style="height: 28px;"></span>
+            <span style="height: 32px;"></span>
+            <span style="height: 24px;"></span>
+          </div>
+        </div>
+        <div class="card">
+          <strong>Completion rate per group</strong>
+          <div style="margin-top: 1rem;">
+            <p>Ops Team – <strong data-stat="ops">92%</strong></p>
+            <div class="progress"><span style="width: 92%;"></span></div>
+            <p>Faculty – <strong data-stat="faculty">88%</strong></p>
+            <div class="progress"><span style="width: 88%;"></span></div>
+            <p>Sales – <strong data-stat="sales">79%</strong></p>
+            <div class="progress"><span style="width: 79%;"></span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="mcq">
+      <div class="split">
+        <div>
+          <h2>Optimized for Multiple-Choice Questions (MCQ).</h2>
+          <p class="section-intro">Structured authoring with answer keys, rationale for each option, and math notation
+            placeholders like \(x^2\) or \(\alpha + \beta = \gamma\) or \(\sum_{i=1}^{n} x_i\). Learners see polished,
+            mobile-friendly interactions.</p>
+          <p style="color: var(--muted);">Tag MCQs by difficulty, align to objectives, and reuse across tests.
+            Explanation text and "why others are wrong" appear instantly in Learning Mode.</p>
+        </div>
+        <div class="mcq-card">
+          <p><strong>Sample MCQ</strong></p>
+          <p>Which mode reveals explanations immediately after each question?</p>
+          <div class="mcq-options">
+            <label>
+              <input type="radio" name="mcq" value="exam"> Exam Mode
+            </label>
+            <label>
+              <input type="radio" name="mcq" value="learning"> Learning Mode
+            </label>
+            <label>
+              <input type="radio" name="mcq" value="survey"> Survey Review Mode
+            </label>
+            <label>
+              <input type="radio" name="mcq" value="draft"> Draft Builder Mode
+            </label>
+          </div>
+          <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+            <button class="btn btn-primary" id="mcq-check">Check Answer</button>
+            <button class="btn btn-secondary" id="mcq-reset">Reset</button>
+          </div>
+          <p class="mcq-feedback" id="mcq-feedback"></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="builder">
+      <div class="split">
+        <div>
+          <h2>Build questions and surveys without friction.</h2>
+          <ul style="color: var(--muted); padding-left: 1.2rem;">
+            <li>
+              Create MCQs manually with rich text, math expressions, images
+            </li>
+            <li>
+              Import or auto-generate full MCQ sets from a URL – including questions, answers, distractors,
+              explanations, "why others are wrong" and references.
+            </li>
+            <li>
+              Build scored surveys with single-choice, multiple-choice, text and scale questions, where each
+              question can have an unlimited number of options and custom scoring.
+            </li>
+            <li>Reorder MCQs with a simple drag-and-drop to match your teaching flow.</li>
+          </ul>
+          <div style="margin-top: 1rem; background: rgba(255, 255, 255, 0.05); border-radius: 16px; padding: 1rem;">
+            <p style="color: var(--muted);">Builder workflow snapshot</p>
+            <div style="display: grid; gap: 0.5rem; margin-top: 0.5rem;">
+              <div style="background: rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 0.75rem;">
+                1. Manual MCQ editor (question + 4 options)
+              </div>
+              <div style="background: rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 0.75rem;">
+                2. Generate MCQs from URL via AI microservice
+              </div>
+              <div style="background: rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 0.75rem;">
+                3. Survey with scoring & result legend
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="video-placeholder">
+          <div class="video-frame">
+            <iframe src="https://www.youtube.com/embed/3_z9OekAmTY?list=PL0lLpJc56xlnFx1ZdmV3_fi0kmxUMlGqM&index=3&rel=0"
+              title="MCQ creation" frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen loading="lazy"></iframe>
+          </div>
+          <p style="margin-top: 1rem; text-align: center; font-weight: 600;">
+            See how to create MCQs.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="fine-tune">
+      <div class="split">
+        <div class="video-placeholder">
+          <div class="video-frame">
+            <iframe src="https://www.youtube.com/embed/6sAPJ0-HVJc?list=PL0lLpJc56xlnFx1ZdmV3_fi0kmxUMlGqM&index=1&rel=0"
+              title="Fine-tune every test before you publish." frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen loading="lazy"></iframe>
+          </div>
+          <p style="margin-top: 1rem; text-align: center; font-weight: 600;">
+            See how to refine and adopt / update MCQs.
+          </p>
+        </div>
+
+        <div>
+          <h2>Fine-tune every test before you publish.</h2>
+          <ul style="color: var(--muted); padding-left: 1.2rem;">
+            <li>Assign tests to individuals for personalized result tracking, or to groups for fully anonymous submissions.</li>
+            <li>Edit any generated question: tweak wording, change the correct key, or adjust distractors.</li>
+            <li>Add or refine explanations and “why others are wrong” for deeper learning.</li>
+            <li>Attach references (anchors, TOC sections, URLs) so students can jump back to the source material.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+
+    <section id="extension-teaser">
+      <div class="split">
+        <div>
+          <h2>Turn any web page into a test.</h2>
+          <ul style="color: var(--muted); padding-left: 1.2rem;">
+            <li>Use the EduToolsFactory Chrome extension to capture URLs with one click.</li>
+            <li>Build draft tests from multiple pages, articles or documentation links.</li>
+            <li>Send the draft to your EduToolsFactory account and generate MCQs from the URLs.</li>
+          </ul>
+
+          <div style="margin-top: 1rem; background: rgba(255, 255, 255, 0.05); border-radius: 16px; padding: 1rem;">
+            <p style="color: var(--muted);">Extension workflow (teaser)</p>
+            <div style="display: grid; gap: 0.5rem; margin-top: 0.5rem;">
+              <div style="background: rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 0.75rem;">
+                1. Open a page or link you want to turn into questions.
+              </div>
+              <div style="background: rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 0.75rem;">
+                2. Click "Add page to active test" in the extension popup or context menu.
+              </div>
+              <div style="background: rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 0.75rem;">
+                3. When you're ready, send the draft to EduToolsFactory and generate MCQs.
+              </div>
+            </div>
+            <p style="margin-top: 0.75rem; font-size: 0.85rem; color: var(--muted);">
+              The extension stores only your test drafts and remote token, used solely to send URLs to your
+              EduToolsFactory account.
+            </p>
+          </div>
+        </div>
+
+        <div class="video-placeholder">
+          <div class="video-frame">
+            <iframe src="https://www.youtube.com/embed/52WYefjIFnA?list=PL0lLpJc56xlnFx1ZdmV3_fi0kmxUMlGqM&index=2&rel=0"
+              title="EduToolsFactory Chrome Extension – URL to MCQ workflow" frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen loading="lazy"></iframe>
+          </div>
+          <p style="margin-top: 1rem; text-align: center; font-weight: 600;">
+            Watch how the Chrome extension builds a test from URLs.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- <section id="ai">
+      <h2>Let AI draft your next test.</h2>
+      <p class="section-intro">Generate MCQs and surveys from URLs, PDFs, or objective lists. Keep humans focused on
+        strategy.</p>
+      <div class="split">
+        <form class="form-grid" id="ai-form">
+          <input type="text" id="ai-topic" placeholder="Enter a topic, URL, or objective" required>
+          <select id="ai-type">
+            <option value="mcq">Generate MCQ test</option>
+            <option value="survey">Generate survey</option>
+          </select>
+          <input type="number" id="ai-count" min="3" max="20" value="5">
+          <button class="btn btn-primary" type="submit">Generate with AI (demo)</button>
+          <p id="ai-status" style="color: var(--muted);"></p>
+        </form>
+        <div class="type-card" style="background: var(--card-light); color:#111;">
+          <strong>AI drafted items</strong>
+          <p style="color:#4a4f5f;">Submit the form to preview mocked items.</p>
+          <ul id="ai-output" style="margin-top:0.8rem; padding-left:1.2rem;"></ul>
+        </div>
+      </div>
+    </section> -->
+
+    <section id="demo">
+      <h2>Ready to industrialize your exams and surveys?</h2>
+      <p class="section-intro">Start with a small team, scale to your entire organization.</p>
+      <div class="hero-buttons">
+        <button class="btn btn-primary">Start free sandbox</button>
+        <button class="btn btn-secondary">Talk to us</button>
+      </div>
+    </section>
+  </main>
+
+<footer>
+    <p>EduToolsFactory powers assessment factories for education, training, and HR teams by combining creation,
+      assignment, analytics, and AI authoring.</p>
+    <div class="footer-bar">
+      <div class="footer-links">
+        <a href="features.html">Capabilities</a>
+        <a href="api.html">API</a>
+        <a href="https://edutoolsfactory.com/security">Security &amp; Compliance</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-actions">
+        <a class="btn btn-secondary" href="https://edutoolsfactory.com/investors">Investors</a>
+        <a class="btn btn-secondary" href="survey-roadmap.html">Survey Roadmap</a>
+      </div>
+    </div>
+    <p>© <span id="year"></span> EduToolsFactory</p>
+    <a class="back-top" data-scroll="body">↑ Back to top</a>
+  </footer>
+  <button class="floating-top" id="floating-top" aria-label="Back to top">↑</button>
+
+  <script type="module">
+    const scrollLinks = document.querySelectorAll('a[href^="#"], [data-scroll]');
+    const headerEl = document.querySelector('header');
+    const scrollToTarget = target => {
+      if (!target) return;
+      const offset = headerEl.offsetHeight + 20;
+      const top = target === document.body ? 0 : target.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    };
+    scrollLinks.forEach(link => {
+      link.addEventListener('click', event => {
+        event.preventDefault();
+        const targetId = link.getAttribute('href') || link.dataset.scroll;
+        const target = targetId === 'body' ? document.body : document.querySelector(targetId);
+        scrollToTarget(target);
+      });
+    });
+
+    const filterButtons = document.querySelectorAll('.filter-bar button');
+    const dataSets = {
+      week: { open: 248, start: 184, complete: 162, score: 78, time: 42, ops: '92%', faculty: '88%', sales: '79%' },
+      month: { open: 920, start: 740, complete: 660, score: 81, time: 44, ops: '90%', faculty: '86%', sales: '75%' },
+      quarter: { open: 2600, start: 2180, complete: 1980, score: 83, time: 47, ops: '93%', faculty: '89%', sales: '82%' }
+    };
+    const updateAnalytics = set => {
+      const data = dataSets[set];
+      document.querySelector('[data-stat="open"]').textContent = data.open;
+      document.querySelector('[data-stat="start"]').textContent = data.start;
+      document.querySelector('[data-stat="complete"]').textContent = data.complete;
+      document.querySelector('[data-stat="score"]').style.width = `${data.score}%`;
+      document.querySelector('[data-stat="time"]').textContent = data.time;
+      document.querySelector('[data-stat="ops"]').textContent = data.ops;
+      document.querySelector('[data-stat="faculty"]').textContent = data.faculty;
+      document.querySelector('[data-stat="sales"]').textContent = data.sales;
+      document.querySelector('[data-metric="open"]').textContent = data.open;
+      document.querySelector('[data-metric="start"]').textContent = data.start;
+      document.querySelector('[data-metric="complete"]').textContent = data.complete;
+      document.querySelector('[data-metric="score"]').textContent = `${data.score}%`;
+      document.querySelector('[data-dash="open"]').textContent = data.open;
+      document.querySelector('[data-dash="start"]').textContent = data.start;
+      document.querySelector('[data-dash="complete"]').textContent = data.complete;
+      document.querySelector('[data-dash="learn"]').textContent = Math.round(data.open * 1.2);
+    };
+    filterButtons.forEach(btn => btn.addEventListener('click', () => {
+      filterButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      updateAnalytics(btn.dataset.filter);
+    }));
+    updateAnalytics('week');
+
+    const mcqLabels = document.querySelectorAll('.mcq-options label');
+    const mcqFeedback = document.getElementById('mcq-feedback');
+    const checkBtn = document.getElementById('mcq-check');
+    const resetBtn = document.getElementById('mcq-reset');
+
+    const resetMcq = () => {
+      mcqLabels.forEach(label => label.classList.remove('correct', 'incorrect'));
+      document.querySelectorAll('input[name="mcq"]').forEach(input => (input.checked = false));
+      mcqFeedback.textContent = '';
+    };
+
+    checkBtn.addEventListener('click', () => {
+      const selected = document.querySelector('input[name="mcq"]:checked');
+      mcqLabels.forEach(label => label.classList.remove('correct', 'incorrect'));
+      if (!selected) {
+        mcqFeedback.textContent = 'Please choose an answer before checking.';
+        return;
+      }
+      const option = selected.closest('label');
+      if (selected.value === 'learning') {
+        option.classList.add('correct');
+        mcqFeedback.textContent = 'Correct! Learning mode delivers instant feedback.';
+      } else {
+        option.classList.add('incorrect');
+        const correct = document.querySelector('input[value="learning"]').closest('label');
+        correct.classList.add('correct');
+        mcqFeedback.textContent = 'Learning mode is correct. Exam mode waits until the end.';
+      }
+    });
+    resetBtn.addEventListener('click', resetMcq);
+
+    const aiForm = document.getElementById('ai-form');
+    const aiStatus = document.getElementById('ai-status');
+    const aiOutput = document.getElementById('ai-output');
+    aiForm.addEventListener('submit', event => {
+      event.preventDefault();
+      aiStatus.textContent = 'AI generation in progress…';
+      aiOutput.innerHTML = '';
+      const type = document.getElementById('ai-type').value;
+      const count = Number(document.getElementById('ai-count').value);
+      setTimeout(() => {
+        aiStatus.textContent = `Drafted ${count} ${type === 'mcq' ? 'MCQ' : 'survey'} items.`;
+        const mockMCQs = ['MCQ: Explain the difference between Exam and Learning modes.', 'MCQ: Identify which metric indicates drop-off.', 'MCQ: Choose the correct workflow for anonymous surveys.'];
+        const mockSurveys = ['Survey: Rate onboarding clarity from 1-5.', 'Survey: Describe how coaching sessions helped your team.', 'Survey: Select confidence level in analytics insights.'];
+        const items = type === 'mcq' ? mockMCQs : mockSurveys;
+        items.slice(0, count).forEach((text, index) => {
+          const li = document.createElement('li');
+          li.textContent = `${index + 1}. ${text}`;
+          aiOutput.appendChild(li);
+        });
+      }, 1200);
+    });
+
+    const topButton = document.getElementById('floating-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) {
+        topButton.classList.add('visible');
+      } else {
+        topButton.classList.remove('visible');
+      }
+    });
+    topButton.addEventListener('click', () => scrollToTarget(document.body));
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+
+</html>

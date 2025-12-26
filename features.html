@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>EduToolsFactory – Feature Overview</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(180deg, #0d0620, #1a1440);
+      --accent: #7b5cff;
+      --accent-blue: #3bcbea;
+      --text: #ffffff;
+      --muted: #c6c4d6;
+      --card: #1e1a33;
+      --card-light: #27213f;
+      --shadow: 0 25px 45px rgba(3, 0, 15, 0.6);
+      --border: rgba(123, 92, 255, 0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: rgba(13, 6, 32, 0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(123, 92, 255, 0.2);
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.45);
+    }
+
+    .nav-bar {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem clamp(1rem, 4vw, 2.5rem);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    nav a {
+      padding: 0.4rem 0.7rem;
+      border-radius: 999px;
+      color: var(--muted);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    nav a:hover,
+    nav a.active {
+      background: rgba(123, 92, 255, 0.28);
+      color: var(--text);
+    }
+
+    .btn {
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      border-radius: 999px;
+      padding: 0.7rem 1.3rem;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #08051a;
+      box-shadow: 0 20px 45px rgba(123, 92, 255, 0.35);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid rgba(59, 203, 234, 0.5);
+      color: var(--accent-blue);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: clamp(1.5rem, 4vw, 3rem) clamp(1rem, 4vw, 2.5rem) 4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+
+    section {
+      background: rgba(30, 26, 51, 0.85);
+      border-radius: 28px;
+      padding: clamp(1.5rem, 4vw, 2.8rem);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      scroll-margin-top: 140px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      line-height: 1.25;
+    }
+
+    h1 {
+      font-size: clamp(2.3rem, 5vw, 3.5rem);
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      margin-bottom: 0.75rem;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+      color: var(--accent-blue);
+    }
+
+    .section-intro {
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+
+    .feature-card {
+      background: var(--card);
+      border-radius: 20px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: 0 18px 35px rgba(0, 0, 0, 0.45);
+      color: var(--muted);
+    }
+
+    .feature-card ul {
+      padding-left: 1.2rem;
+      line-height: 1.5;
+    }
+
+    .feature-card+.feature-card {
+      margin-top: 1rem;
+    }
+
+    .cta-block {
+      text-align: center;
+      display: grid;
+      gap: 1rem;
+    }
+
+    .cta-block .btn {
+      width: fit-content;
+      margin: 0 auto;
+    }
+
+    footer {
+      background: #0c0f18;
+      padding: 2rem clamp(1rem, 4vw, 2.5rem);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--muted);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1rem 0;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      padding: 0;
+      border: none;
+      border-radius: 0;
+      font-weight: 500;
+      box-shadow: none;
+      background: transparent;
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+      text-decoration: underline;
+    }
+
+    .footer-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      margin: 1rem 0;
+    }
+
+    .footer-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .footer-actions .btn {
+      box-shadow: none;
+    }
+
+    .back-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--accent-blue);
+      cursor: pointer;
+    }
+
+    .floating-top {
+      position: fixed;
+      right: 1rem;
+      bottom: 1.5rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: none;
+      background: var(--accent-blue);
+      color: #08051a;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s, opacity 0.3s;
+      z-index: 1000;
+    }
+
+    .floating-top.visible {
+      display: flex;
+    }
+
+    @media (max-width: 768px) {
+      .nav-bar {
+        padding: 0.6rem 0.9rem;
+        gap: 0.5rem;
+      }
+
+      nav ul {
+        gap: 0.4rem;
+        font-size: 0.82rem;
+      }
+
+      .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+      }
+
+      section {
+        scroll-margin-top: 160px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="nav-bar">
+      <div class="logo">
+        <img src="images/logo.png" alt="EduToolsFactory logo" width="44" height="44">
+        <span>EduToolsFactory</span>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Features</a></li>
+          <li><a href="index.html#types">Test &amp; Survey Types</a></li>
+          <li><a href="index.html#modes">Modes</a></li>
+          <li><a href="index.html#analytics">Analytics</a></li>
+          <li><a href="index.html#mcq">MCQ</a></li>
+          <li><a href="index.html#ai">AI Generator</a></li>
+          <li><a href="index.html#demo">Demo</a></li>
+        </ul>
+      </nav>
+      <button class="btn btn-primary" data-scroll="#hero">Get Started</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="hero">
+      <p style="color: var(--accent); text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.85rem;">Feature
+        stack</p>
+      <h1>EduToolsFactory – Full Feature Overview</h1>
+      <p class="section-intro">EduToolsFactory is an assessment and survey intelligence platform designed for educators,
+        trainers and HR teams who need precise, data-driven tests and surveys – not just quick quizzes. Below is a
+        complete overview of what the platform can do today.</p>
+    </section>
+
+    <section>
+      <h2>1. MCQ Engine – Structured, High-Quality Questions</h2>
+      <div class="feature-card">
+        <h3>1.1 Manual MCQ builder</h3>
+        <ul>
+          <li>Create Multiple-Choice Questions (MCQs) directly in the browser.</li>
+          <li>Rich text question editor (formatted text, emphasis, links, lists).</li>
+          <li>Support for math expressions (e.g. LaTeX-style inline formulas).</li>
+          <li>Attach images to questions or explanations.</li>
+          <li>Each MCQ has a fixed, structured format: question body, four options (one correct answer and three
+            distractors), explanation, "why others are wrong", references.</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h3>1.2 Full lifecycle for MCQs</h3>
+        <ul>
+          <li>Edit any part of the MCQ object at any time.</li>
+          <li>Duplicate existing MCQs to create variants quickly.</li>
+          <li>Delete MCQs that are no longer needed.</li>
+          <li>Reorder questions within a test using ordering fields or drag-and-drop.</li>
+          <li>Reuse MCQs across multiple tests and programs.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>2. Survey Engine – Flexible, Scored Questionnaires</h2>
+      <div class="feature-card">
+        <h3>2.1 Supported survey question types</h3>
+        <ul>
+          <li>Single choice</li>
+          <li>Multiple choice</li>
+          <li>Text (open-ended answers)</li>
+          <li>Scale / Likert (e.g. 1–5 or 1–10)</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h3>2.2 Flexible scoring, dimensions and legends</h3>
+        <p style="color: var(--muted);">
+          Each survey question can have its own scoring model. Answer options may contribute weighted scores to one or
+          more
+          dimensions (subscales), including reverse-scored items and control questions.
+        </p>
+        <p style="color: var(--muted);">
+          The engine can compute a total score for the whole questionnaire and separate scores per dimension
+          (e.g. stress &amp; coping styles, engagement factors, personality-like profiles). Both total and per-dimension
+          scores can be mapped to interpretation bands (legends), for example:
+        </p>
+        <ul>
+          <li>0–10: "Needs support"</li>
+          <li>11–20: "Developing"</li>
+          <li>21–30: "Advanced"</li>
+        </ul>
+        <p style="color: var(--muted);">
+          This enables profile-style summaries suitable for attitude surveys, readiness checks, team snapshots and HR
+          screening,
+          while remaining in a non-clinical "light" mode intended for self-reflection, organizational insight and
+          research (<a href="survey-roadmap.html" style="color:#3bcbea">not for medical diagnosis</a>).
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <h3>2.3 Unlimited options for complex inventories</h3>
+        <p style="color: var(--muted);">
+          Unlike MCQs (which are intentionally constrained to four options), survey questions can have an unlimited number of answer options.
+        </p>
+        <p style="color: var(--muted);">
+          Combined with dimension-based scoring, this makes the engine suitable for complex questionnaires, detailed feedback instruments and multi-facet inventories – for example, multiple behaviors, coping strategies or engagement
+          factors captured within a single item.
+        </p>
+        <p style="color: var(--muted);">
+          These richer item formats still operate in a non-clinical, insight-focused “light” mode, designed for self-reflection, organizational insight and research, rather than medical diagnosis.
+        </p>
+      </div>
+
+    </section>
+
+    <section>
+      <h2>3. Content Sources – From Manual Entry to Full Auto-Generation</h2>
+      <div class="feature-card">
+        <h3>3.1 Manual content creation</h3>
+        <ul>
+          <li>Hand-craft MCQs one by one.</li>
+          <li>Build structured survey templates for recurring use.</li>
+          <li>Maintain curated question banks for specific topics or courses.</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h3>3.2 Import from JSON</h3>
+        <ul>
+          <li>Import large MCQ sets from a local .json file in a predefined format.</li>
+          <li>Validate structure before import.</li>
+          <li>Automatically store the import path and trigger the process immediately.</li>
+          <li>After import, every question remains fully editable.</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h3>3.3 Auto-generate MCQ sets from URLs (AI-assisted)</h3>
+        <ul>
+          <li>Provide a URL as source content.</li>
+          <li>The system fetches the page, converts content to clean markdown, and slices it into meaningful sections
+            with anchors.</li>
+          <li>AI generates full MCQ sets including questions, answers, distractors, explanations, "why others are
+            wrong", references.</li>
+          <li>Generated MCQs are stored in your account and can be reviewed, edited and reordered before publishing.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>4. Chrome Extension – Build Tests From the Web</h2>
+      <div class="feature-card">
+        <h3>4.1 Draft tests directly from the browser</h3>
+        <ul>
+          <li>Create and name tests in the extension popup.</li>
+          <li>Use extension storage to keep multiple drafts with their own list of URLs.</li>
+          <li>Add the current page to the active test with a single click.</li>
+          <li>Use the context menu (right-click) to add any link to the active test.</li>
+          <li>Manage multiple draft tests in parallel.</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h3>4.2 Send drafts to EduToolsFactory</h3>
+        <p style="color: var(--muted);">When a draft is ready, send it to your EduToolsFactory account via the remote
+          API. The server can store URLs for later processing or automatically trigger MCQ generation from those URLs
+          (auto-mode).</p>
+        <p style="color: var(--muted);">The extension never sells data and uses permissions strictly to read the current
+          tab URL or right-clicked link, store configuration and drafts, and communicate with the EduToolsFactory API.
+        </p>
+      </div>
+      <div class="feature-card">
+        <h3>4.3 Secure by design</h3>
+        <ul>
+          <li>Uses a dedicated remote token stored only in the browser’s extension storage.</li>
+          <li>Only sends URLs and minimal metadata that you explicitly choose.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>5. Test &amp; Survey Management</h2>
+      <div class="feature-card">
+        <h3>5.1 Test management</h3>
+        <ul>
+          <li>Create named tests within your EduToolsFactory account.</li>
+          <li>Attach one or more source URLs to each test.</li>
+          <li>Track per URL how many unique MCQs were imported and how many are published.</li>
+          <li>Preview and manage the full list of MCQs within each test.</li>
+          <li>Reuse, reorder and refine questions before making the test live.</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h3>5.2 Survey management</h3>
+        <ul>
+          <li>Create and name surveys for training, feedback, onboarding or HR use cases.</li>
+          <li>Add any combination of single choice, multiple choice, text and scale questions.</li>
+          <li>Configure scoring and create an interpretation legend for the final score.</li>
+          <li>Assign surveys just like tests: to individuals or to anonymous groups.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>6. Assignment &amp; Delivery Modes</h2>
+      <div class="feature-card">
+        <h3>6.1 Assign to individuals or groups</h3>
+        <ul>
+          <li>Assign a test or survey to a single user with results linked to that person.</li>
+          <li>Assign to a group with responses collected anonymously, ideal for climate surveys and feedback.</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h3>6.2 Per-session test integrity</h3>
+        <p style="color: var(--muted);">Each landing on a test or survey link creates a new session. Sessions track
+          progress (open, started, completed), maintain integrity of attempts, and separate runs even for the same user.
+        </p>
+      </div>
+      <div class="feature-card">
+        <h3>6.3 Exam vs Learning modes (for MCQs)</h3>
+        <p style="color: var(--muted);"><strong>Exam Mode:</strong> Timed, no answers shown until completion, designed
+          for formal assessments.</p>
+        <p style="color: var(--muted);"><strong>Learning Mode:</strong> Instant feedback, explanations displayed
+          immediately, encourages iterative learning.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>7. Analytics &amp; Insights</h2>
+      <div class="feature-card">
+        <h3>7.1 MCQ analytics</h3>
+        <ul>
+          <li>Per-test overview of open, started, and completed sessions.</li>
+          <li>Average scores and distributions.</li>
+          <li>Per-question analytics: correct vs incorrect rates, popular distractors, domains that need attention.</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h3>7.2 Survey analytics</h3>
+        <ul>
+          <li>Visual summary of answer distributions for each question.</li>
+          <li>Aggregated score per respondent or segment.</li>
+          <li>Interpretation via legends (e.g. "Needs coaching", "On track", "High performer").</li>
+          <li>Perfect for HR, L&amp;D and continuous improvement loops.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>8. Remote API &amp; Integrations</h2>
+      <div class="feature-card">
+        <h3>8.1 Remote Tests API</h3>
+        <ul>
+          <li>Token-secured endpoints for listing tests and their URLs.</li>
+          <li>Create tests with URLs from external systems.</li>
+          <li>Update tests with additional URLs.</li>
+          <li>Delete tests or individual URLs.</li>
+          <li>Response format designed for dashboards and automations.</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h3>8.2 Remote Surveys API</h3>
+        <ul>
+          <li>Endpoints to list surveys and their structure.</li>
+          <li>Inspect survey questions and options.</li>
+          <li>Retrieve assignments and response counts.</li>
+          <li>Ideal for integrating surveys into HR or learning ecosystems.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>9. Security &amp; Data Protection (High-Level)</h2>
+      <div class="feature-card">
+        <h3>9.1 Infrastructure and access</h3>
+        <ul>
+          <li>Hosted in the EU, behind a secure edge proxy.</li>
+          <li>All external access goes through HTTPS.</li>
+          <li>No direct exposure of internal containers to the public internet.</li>
+          <li>Only administrators can create/manage tests and surveys, assign assessments, and access detailed
+            analytics.</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h3>9.2 Application protection</h3>
+        <ul>
+          <li>Multiple firewall layers protecting incoming traffic.</li>
+          <li>Application-level protections against common injection and abuse patterns.</li>
+          <li>Per-user and per-IP rate limiting for remote endpoints.</li>
+          <li>Logging and monitoring for security events and anomalies.</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h3>9.3 Data handling and privacy</h3>
+        <ul>
+          <li>Supports GDPR-aware data handling: export and deletion on request.</li>
+          <li>Data retained only as long as necessary or until deletion is requested.</li>
+          <li>Institutions act as Data Controllers; EduToolsFactory processes data strictly for assessment purposes.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>10. For Teams, Educators, HR &amp; Research Professionals</h2>
+      <!-- <div class="feature-card"> -->
+      <p class="section-intro">EduToolsFactory is designed for a wide range of professionals who rely on high-quality
+        assessments, structured
+        surveys and evidence-based insights.</p>
+      <div class="feature-card">
+        <h3>For educators</h3>
+        <ul>
+          <li>Build precise, well-structured MCQs with full control over question quality.</li>
+          <li>Support learning analytics and feedback loops that guide student progress.</li>
+          <li>Use AI-assisted generation to create exam-ready materials in minutes.</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h3>For trainers and learning organizations</h3>
+        <ul>
+          <li>Create repeatable, scalable testing programs for workshops, onboarding and certification.</li>
+          <li>Measure knowledge retention and identify training gaps across teams.</li>
+          <li>Deliver assessments in either exam mode or learning mode depending on the context.</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h3>For HR and L&amp;D teams</h3>
+        <ul>
+          <li>Build structured assessments and behavioral surveys with scoring systems and interpretive legends.</li>
+          <li>Evaluate candidates, measure team pulse, collect feedback and track development over time.</li>
+          <li>Combine MCQs and surveys within one cohesive analytics dashboard.</li>
+        </ul>
+      </div>
+      <div class="feature-card">
+        <h3>For pollsters, analysts and research institutions</h3>
+        <ul>
+          <li>Conduct public-opinion surveys, sentiment research, market questionnaires or internal evaluations.</li>
+          <li>Use unlimited-option survey questions, flexible scoring and legend mapping to model outcomes.</li>
+          <li>Collect anonymous responses at scale or segment results by groups when attribution is needed.</li>
+          <li>Generate clean data exports suitable for statistical analysis, dashboards or BI tools.</li>
+        </ul>
+      </div>
+      <br>
+      <p class="section-intro">EduToolsFactory brings MCQs, surveys, analytics, AI generation, structured delivery and
+        secure data handling
+        into a single, coherent platform - built for educators, trainers, HR teams and research professionals alike.</p>
+      <!-- </div> -->
+    </section>
+
+    <section class="cta-block">
+      <h2>Ready to explore these features in practice?</h2>
+      <div style="display:flex; gap:1rem; flex-wrap:wrap; justify-content:center;">
+        <a class="btn btn-secondary" href="index.html">Back to main site</a>
+        <a class="btn btn-primary" href="https://edutoolsfactory.com/login">Sign in to EduToolsFactory</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>EduToolsFactory powers assessment factories for education, training, and HR teams by combining creation,
+      assignment, analytics, and AI authoring.</p>
+    <div class="footer-bar">
+      <div class="footer-links">
+        <a href="features.html">Capabilities</a>
+        <a href="api.html">API</a>
+        <a href="https://edutoolsfactory.com/security">Security &amp; Compliance</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-actions">
+        <a class="btn btn-secondary" href="https://edutoolsfactory.com/investors">Investors</a>
+        <a class="btn btn-secondary" href="survey-roadmap.html">Survey Roadmap</a>
+      </div>
+    </div>
+    <p>© <span id="year"></span> EduToolsFactory</p>
+    <a class="back-top" data-scroll="body">↑ Back to top</a>
+  </footer>
+  <button class="floating-top" id="floating-top" aria-label="Back to top">↑</button>
+
+  <script type="module">
+    const scrollLinks = document.querySelectorAll('a[href^="#"], [data-scroll]');
+    const headerEl = document.querySelector('header');
+    const scrollToTarget = target => {
+      if (!target) return;
+      const offset = headerEl.offsetHeight + 20;
+      const top = target === document.body ? 0 : target.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    };
+    scrollLinks.forEach(link => {
+      const href = link.getAttribute('href');
+      const isInternal = href && href.startsWith('#');
+      if (!isInternal && !link.dataset.scroll) return;
+      link.addEventListener('click', event => {
+        const targetId = link.getAttribute('href') || link.dataset.scroll;
+        if (targetId && targetId.startsWith('#') || targetId === 'body') {
+          event.preventDefault();
+          const target = targetId === 'body' ? document.body : document.querySelector(targetId);
+          scrollToTarget(target);
+        }
+      });
+    });
+
+    const topButton = document.getElementById('floating-top');
+    window.addEventListener('scroll', () => {
+      topButton.classList.toggle('visible', window.scrollY > 400);
+    });
+    topButton.addEventListener('click', () => scrollToTarget(document.body));
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+
+</html>

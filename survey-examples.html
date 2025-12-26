@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>EduToolsFactory – Survey Library / Live Examples</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(180deg, #0d0620, #1a1440);
+      --accent: #7b5cff;
+      --accent-blue: #3bcbea;
+      --text: #ffffff;
+      --muted: #c6c4d6;
+      --card: #1e1a33;
+      --border: rgba(123, 92, 255, 0.25);
+      --shadow: 0 25px 45px rgba(3, 0, 15, 0.6);
+    }
+
+    /* Lightbox for gallery images */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 5, 10, 0.8);
+      backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      z-index: 2000;
+    }
+
+    .lightbox.visible {
+      display: flex;
+    }
+
+    .lightbox-content {
+      position: relative;
+      max-width: 1200px;
+      width: 100%;
+      max-height: 90vh;
+      display: grid;
+      place-items: center;
+    }
+
+    .lightbox-content img {
+      width: 100%;
+      height: auto;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 14px;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -12px;
+      right: -12px;
+      background: #111426;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: var(--text);
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+      transition: transform 0.2s;
+    }
+
+    .lightbox-close:hover {
+      transform: scale(1.05);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+      border-radius: 12px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: rgba(13, 6, 32, 0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(123, 92, 255, 0.2);
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.45);
+    }
+
+    .nav-bar {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem clamp(1rem, 4vw, 2.5rem);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    nav a {
+      padding: 0.4rem 0.6rem;
+      border-radius: 999px;
+      color: var(--muted);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    nav a:hover,
+    nav a.active {
+      background: rgba(90, 126, 168, 0.2);
+      color: var(--text);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      border-radius: 999px;
+      padding: 0.7rem 1.3rem;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #08051a;
+      box-shadow: 0 20px 45px rgba(123, 92, 255, 0.35);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid rgba(59, 203, 234, 0.5);
+      color: var(--accent-blue);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: clamp(1.5rem, 4vw, 3rem) clamp(1rem, 4vw, 2.5rem) 4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+
+    section {
+      background: rgba(30, 26, 51, 0.85);
+      border-radius: 28px;
+      padding: clamp(1.5rem, 4vw, 2.8rem);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      scroll-margin-top: 150px;
+    }
+
+    .hero {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      line-height: 1.15;
+      margin-bottom: 0.75rem;
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      margin-bottom: 0.6rem;
+    }
+
+    h3 {
+      font-size: 1.2rem;
+      color: var(--accent-blue);
+      margin-bottom: 0.4rem;
+    }
+
+    .section-intro {
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1.2rem;
+      align-items: center;
+    }
+
+    .hero-buttons .btn {
+      white-space: nowrap;
+    }
+
+    .ml-10px {
+      margin-left: 10px;
+    }
+
+    .survey-block {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .survey-card {
+      background: var(--card);
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      padding: 1rem;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
+      display: grid;
+      gap: 0.75rem;
+      position: relative;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .survey-card>* {
+      position: relative;
+      z-index: 1;
+    }
+
+    .survey-card::after {
+      content: '';
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      bottom: 10px;
+      left: 0;
+      background-image: var(--card-bg, none);
+      background-repeat: no-repeat;
+      background-position: right center;
+      background-size: 24% auto;
+      opacity: 0.25;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @media (max-width: 768px) {
+      .survey-card::after {
+        left: 10px;
+        background-position: center;
+        background-size: contain;
+        opacity: 0.10;
+      }
+    }
+
+    .survey-card ul {
+      padding-left: 1.2rem;
+      color: var(--muted);
+      display: grid;
+      gap: 0.35rem;
+    }
+
+    .live-link {
+      color: var(--accent-blue);
+      font-weight: 600;
+      text-decoration: underline;
+    }
+
+    .gallery {
+      margin-top: 0.25rem;
+    }
+
+    .gallery-grid {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      justify-items: center;
+      align-items: start;
+    }
+
+    .gallery-card {
+      width: 100%;
+      max-width: 320px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 14px;
+      padding: 0.75rem;
+      display: grid;
+      gap: 0.5rem;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    footer {
+      background: #0c0f18;
+      padding: 2rem clamp(1rem, 4vw, 2.5rem);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--muted);
+    }
+
+    .footer-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      margin: 1rem 0;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      padding: 0;
+      border: none;
+      border-radius: 0;
+      font-weight: 500;
+      box-shadow: none;
+      background: transparent;
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+      text-decoration: underline;
+    }
+
+    .footer-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .footer-actions .btn {
+      box-shadow: none;
+    }
+
+    .back-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--accent-blue);
+      cursor: pointer;
+    }
+
+    .floating-top {
+      position: fixed;
+      right: 1rem;
+      bottom: 1.5rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: none;
+      background: var(--accent-blue);
+      color: #0f1018;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s, opacity 0.3s;
+      z-index: 1000;
+    }
+
+    .floating-top.visible {
+      display: flex;
+    }
+
+    .floating-top:hover {
+      transform: translateY(-3px);
+    }
+
+    @media (max-width: 768px) {
+      .nav-bar {
+        padding: 0.6rem 0.9rem;
+        gap: 0.4rem;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      nav ul {
+        gap: 0.4rem;
+        font-size: 0.82rem;
+      }
+
+      .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+      }
+
+      .hero-buttons {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .hero-buttons .btn {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+      }
+
+      section {
+        scroll-margin-top: 175px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Investor Survey Library / Live Examples page -->
+  <header>
+    <div class="nav-bar">
+      <div class="logo">
+        <img src="images/logo.png" alt="EduToolsFactory logo" width="44" height="44">
+        <span>EduToolsFactory</span>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Features</a></li>
+          <li><a href="index.html#types">Test &amp; Survey Types</a></li>
+          <li><a href="index.html#modes">Modes</a></li>
+          <li><a href="index.html#analytics">Analytics</a></li>
+          <li><a href="index.html#mcq">MCQ</a></li>
+          <li><a href="index.html#demo">Demo</a></li>
+        </ul>
+      </nav>
+      <button class="btn btn-primary" data-scroll="#library">Get Started</button>
+    </div>
+  </header>
+
+  <main id="library">
+    <section class="hero">
+      <div>
+        <p style="color: var(--accent); text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.85rem;">
+          Survey Library · Live Examples
+        </p>
+        <h1>EduToolsFactory Survey Library (Demo Inventories)</h1>
+        <p class="section-intro">
+          All instruments below are non-clinical demo inventories designed for coaching, HR, education, and wellbeing
+          programs. They use the same survey engine: multi-dimensional scoring, profile bands, and rich interpretations.
+          Scores are heuristic indicators, not diagnoses or performance labels, and should always be combined with
+          context and professional judgement.
+        </p>
+        <div class="hero-buttons">
+          <a class="btn btn-primary" href="#personality">View live surveys</a>
+          <a class="btn btn-primary" href="#gallery">View gallery</a>
+          <a class="btn btn-secondary" href="survey-roadmap.html">Survey roadmap</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="personality">
+      <h2>Personality &amp; Behavioral Style</h2>
+      <div class="survey-block">
+
+        <article class="survey-card" style="--card-bg: url('images/surveys/BIG.png');">
+          <h3>Big Five – OCEAN (50 items)</h3>
+          <p>What it screens:<br> Classic Big Five traits – Openness, Conscientiousness, Extraversion, Agreeableness,
+            Emotional Stability.</p>
+          <p>Use cases:<br> Personal development, coaching intake, team workshops, educational programs.</p>
+          <p>Structure:<br> 50 Likert items mapped to the five OCEAN dimensions, with profile bands (e.g. lower /
+            balanced /
+            higher) per trait.</p>
+          <p>Notes:<br> Loosely inspired by Big Five research; configured as a lightweight, non-clinical implementation.
+          </p>
+          <a class="live-link" href="https://testhub.space/survey/kchtxk-251211195717?theme=luxury&lang=en"
+            target="_blank" rel="noopener">LIVE SURVEY -> Big Five – OCEAN</a>
+
+        </article>
+
+        <article class="survey-card" style="--card-bg: url('images/surveys/ADAPT.png');">
+          <h3>Adaptive Behavioral Style Inventory (ABSI)</h3>
+          <p>What it screens: <br> Everyday behavioral style across five dimensions: <br> Emotional Regulation, Social
+            Engagement,
+            Goal Orientation &amp; Discipline, Cognitive Flexibility, Interpersonal Sensitivity.</p>
+          <p>Use cases: <br> Coaching, leadership development, HR talent programs, onboarding assessments.</p>
+          <p>Structure: <br> Likert items with reverse-keyed questions and three profile bands per dimension (low /
+            balanced
+            / high).</p>
+          <p>Positioning: <br> Focuses on how people tend to respond and adapt, not on fixed personality labels.</p>
+          <a class="live-link" href="https://testhub.space/survey/jc8igr-251211195726?theme=cupcake&lang=en"
+            target="_blank" rel="noopener">LIVE SURVEY -> ABSI</a>
+
+        </article>
+
+        <article class="survey-card" style="--card-bg: url('images/surveys/Stress.png');">
+          <h3>Stress &amp; Coping Styles Inventory</h3>
+          <p>What it screens: <br> Preferred coping styles under pressure: Emotional Stability vs Reactivity,
+            Sociability/Extraversion, Seeking Support, Avoidance/Disengagement.</p>
+          <p>Use cases:<br> Manager/employee coaching, wellbeing programs, resilience workshops.</p>
+          <p>Structure:<br> Scenario-based single-choice items where each option contributes to one or more coping
+            dimensions.</p>
+          <p>Positioning:<br> Designed to support conversations about coping strategies; not a mental-health diagnostic.
+          </p>
+          <a class="live-link" href="https://testhub.space/survey/l6xigt-251211195730?theme=nord&lang=en"
+            target="_blank" rel="noopener">LIVE SURVEY -> Stress &amp; Coping Styles</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="lifestyle">
+      <h2>Lifestyle &amp; Wellbeing (New Demo Cluster)</h2>
+      <div class="survey-card" style="margin-bottom:1rem;">
+        <p>These four instruments extend the same architecture into everyday wellbeing and lifestyle habits.</p>
+        <p>All are explicitly:</p>
+        <ul>
+          <li>non-clinical,</li>
+          <li>inspired by public-health guidelines and coaching practice,</li>
+          <li>implemented as flexible demo inventories for HR, wellbeing programs, and SaaS integrations.</li>
+        </ul>
+      </div>
+      <div class="survey-block">
+        <article class="survey-card" style="--card-bg: url('images/surveys/EveryDayFocusEnergy.png');">
+          <h3>Everyday Focus, Energy &amp; Digital Balance (Demo)</h3>
+          <p>Dimensions (examples): <br> Deep Focus &amp; Attention Quality, Intentional vs Reactive Digital Routines,
+            Notification &amp; Multitask Load, Energy &amp; Recovery Rhythm, Boundaries for Screen-Free Rest.</p>
+          <p>Goal: <br> Offer a non-clinical snapshot of how intentionally people manage their focus, energy, and
+            digital
+            ecosystems so wellbeing teams can spark reflective conversations rather than diagnoses.</p>
+          <p>Use cases: <br> Wellbeing coaching, digital wellbeing initiatives, energy-management workshops, SaaS demo
+            content.</p>
+          <p>Profiles: <br> Narrative bands per dimension (e.g. deliberate focus architect vs reactive multitasker,
+            steady vs depleted recovery) with reminders that insights are illustrative, not medical advice.</p>
+          <a class="live-link" href="https://testhub.space/survey/khyvnx-251213182913?theme=bumblebee&lang=en"
+            target="_blank" rel="noopener">LIVE SURVEY -> Everyday Focus, Energy &amp; Digital Balance</a>
+
+        </article>
+
+        <article class="survey-card" style="--card-bg: url('images/surveys/PhysicalActivity.png');">
+          <h3>Physical Activity &amp; Lifestyle Fitness Screener (Demo)</h3>
+          <p>Dimensions (examples): <br> Weekly Movement Frequency, Activity Intensity, Sedentary Time, Recovery &amp;
+            Injury Prevention, Motivation &amp; Consistency.</p>
+          <p>Goal: <br> Provide a quick snapshot of how closely everyday movement patterns approximate general
+            recommendations (e.g. WHO physical-activity guidelines) without turning into a diagnostic tool.</p>
+          <p>Use cases: <br> Corporate wellbeing programs, fitness/wellness apps, lifestyle onboarding flows.</p>
+          <p>Profiles: <br> Per-dimension bands (e.g. lower / balanced / higher movement, higher vs lower sedentary
+            load) to
+            support coaching conversations.</p>
+          <a class="live-link" href="https://testhub.space/survey/tffbfr-251211195817?theme=bumblebee&lang=en"
+            target="_blank" rel="noopener">LIVE SURVEY -> Physical Activity &amp; Lifestyle Fitness</a>
+        </article>
+
+        <article class="survey-card" style="--card-bg: url('images/surveys/Health.png');">
+          <h3>Healthy Eating &amp; Nutrition Habits Inventory (Demo)</h3>
+          <p>Dimensions (examples): <br> Whole-Foods Emphasis, Processed &amp; Convenience Foods Load, Meal Regularity &
+            Rhythm, Hydration Balance, Mindful vs Automatic Eating.</p>
+          <p>Goal: <br> Map everyday nutrition habits—not diets or medical nutrition—into interpretable patterns.</p>
+          <p>Use cases: <br> Wellness programs, lifestyle apps, coaching intake, education about energy and focus.</p>
+          <p>Profiles: <br> Bands for each dimension highlighting patterns such as frequent ultra-processed intake,
+            irregular
+            meals, or strong whole-foods emphasis.</p>
+          <a class="live-link" href="https://testhub.space/survey/dxvugc-251211195820?theme=bumblebee&lang=en"
+            target="_blank" rel="noopener">LIVE SURVEY -> Healthy Eating &amp; Nutrition Habits</a>
+
+        </article>
+
+        <article class="survey-card" style="--card-bg: url('images/surveys/LifeStylerecovery.png');">
+          <h3>Lifestyle Balance &amp; Recovery Check (Demo)</h3>
+          <p>Dimensions (examples): <br> Workload &amp; Demand Pressure, Rest &amp; Recovery Quality, Social Support &
+            Connection, Personal Growth &amp; Hobbies, Boundaries &amp; Switch-Off Ability.</p>
+          <p>Goal:<br> Capture how balanced someone’s life currently feels between work, rest, relationships, and
+            personal
+            growth.</p>
+          <p>Use cases: <br> HR wellbeing programs, leadership/coaching sessions, pre-screen before deeper burnout or
+            mood
+            surveys.</p>
+          <p>Profiles: <br> Per-dimension bands (e.g. high demand pressure, strained recovery, strong social base,
+            robust
+            boundaries).</p>
+          <a class="live-link" href="https://testhub.space/survey/yxcupx-251211195824?theme=coffee&lang=en"
+            target="_blank" rel="noopener">LIVE SURVEY -> Lifestyle Balance &amp; Recovery</a>
+
+        </article>
+
+        <article class="survey-card" style="--card-bg: url('images/surveys/DigitalHabitsBalance.png');">
+          <h3>Digital Habits &amp; Screen Balance Screener (Demo)</h3>
+          <p>Dimensions (examples): <br> Screen Time Load, Digital Multitasking Intensity, Evening Screen &amp; Sleep
+            Impact,
+            Focus &amp; Distraction Balance, Sense of Control over Digital Use.</p>
+          <p>Goal: <br> Provide a structured view of digital habits that influence focus, sleep and wellbeing.</p>
+          <p>Use cases: <br> Digital wellbeing initiatives, parental guidance tools (for adults), productivity and focus
+            apps.</p>
+          <p>Profiles: <br> Bands such as high vs balanced screen load, strong vs strained focus, high vs low sense of
+            control.</p>
+          <a class="live-link" href="https://testhub.space/survey/yj01fk-251211195828?theme=synthwave&lang=en"
+            target="_blank" rel="noopener">LIVE SURVEY -> Digital Habits &amp; Screen Balance</a>
+
+        </article>
+      </div>
+    </section>
+
+    <section id="work">
+      <h2>Work, Team &amp; Culture</h2>
+      <div class="survey-block">
+        <article class="survey-card" style="--card-bg: url('images/surveys/WorkplaceEngBurnout.png');">
+          <h3>Workplace Engagement &amp; Burnout Risk Pulse</h3>
+          <p>What it screens: <br> Early signals around engagement, energy, and burnout risk (workload, control,
+            meaning,
+            support, recovery).</p>
+          <p>Use cases: <br> Team health checks, periodic “pulse” surveys, leadership dashboards.</p>
+          <p>Structure: <br> Short multi-dimensional screener with risk bands rather than hard thresholds.</p>
+          <p>Positioning:<br> Framed as a signal for follow-up, not a medical burnout scale.</p>
+          <a class="live-link" href="https://testhub.space/survey/o1ywbu-251211195734?theme=business&lang=en"
+            target="_blank" rel="noopener">LIVE SURVEY -> Engagement &amp; Burnout Risk Pulse</a>
+        </article>
+
+        <article class="survey-card" style="--card-bg: url('images/surveys/TeamCollabor.png');">
+          <h3>Team Collaboration &amp; Role Style Inventory</h3>
+          <p>What it screens: <br> How people typically contribute in teams: task focus, relationship focus, initiative,
+            structure vs flexibility, conflict handling.</p>
+          <p>Use cases: <br> Team workshops, project kick-offs, role clarity discussions.</p>
+          <p>Structure: <br> Likert items across several collaboration/role dimensions with narrative profiles per
+            dimension.</p>
+          <p>Positioning: <br> Helps teams name complementary styles without implying “good vs bad” roles.</p>
+          <a class="live-link" href="https://testhub.space/survey/urc91b-251211195738?theme=light&lang=en"
+            target="_blank" rel="noopener">LIVE SURVEY -> Team Collaboration &amp; Role Style</a>
+
+        </article>
+
+        <article class="survey-card" style="--card-bg: url('images/surveys/LeaderFocusRisk.png');">
+          <h3>Leadership Focus &amp; Risk Style Inventory (LFRS)</h3>
+          <p>What it screens: <br> Leadership emphasis (people vs delivery vs innovation), comfort with risk, and
+            approach to
+            governance and guardrails.</p>
+          <p>Use cases: <br> Leadership development, succession planning, coaching programs.</p>
+          <p>Structure: <br> Multi-dimensional Likert inventory with profile bands (e.g. delivery-heavy vs
+            people-centric vs
+            innovation-centric emphases).</p>
+          <p>Positioning: <br> Non-clinical, targeted at leadership style and portfolio of bets, not competence or
+            diagnostic
+            labels.</p>
+          <a class="live-link" href="https://testhub.space/survey/tfqb1a-251211195745" target="_blank"
+            rel="noopener">LIVE SURVEY -> Leadership Focus &amp; Risk Style</a>
+
+        </article>
+
+        <article class="survey-card" style="--card-bg: url('images/surveys/SocialSafetyInclusion.png');">
+          <h3>Social Safety &amp; Inclusion Climate (Demo)</h3>
+          <p>What it screens: <br> Perceived psychological safety, inclusion, voice, and fairness in a team or
+            organization.
+          </p>
+          <p>Use cases: <br> DEI initiatives, team retrospectives, climate checks.</p>
+          <p>Structure: <br> Participant-level survey that can be aggregated to team/unit for climate heatmaps;
+            dimensions
+            such as safety to speak up, belonging, fairness, and respectful behaviour.</p>
+          <p>Positioning: <br> Signals areas for follow-up; not a legal or compliance determination by itself.</p>
+          <a class="live-link" href="https://testhub.space/survey/qtobgc-251211195814?theme=retro&lang=en"
+            target="_blank" rel="noopener">LIVE SURVEY -> Social Safety &amp; Inclusion Climate</a>
+
+        </article>
+
+        <article class="survey-card" style="--card-bg: url('images/surveys/values.png');">
+          <h3>Values &amp; Decision Boundaries Inventory (Demo)</h3>
+          <p>What it screens: <br> How people navigate rules, principles, gray zones, long-term impact, and speaking up:
+            Rule
+            Orientation, Principle-Driven Integrity, Gray-Zone Tolerance, Long-Term Responsibility, Willingness to Raise
+            Concerns.</p>
+          <p>Use cases: <br> Ethics &amp; compliance workshops, leadership programs, culture diagnostics.</p>
+          <p>Structure: <br> Likert items with three illustrative bands per dimension (e.g. Flexible Boundary Explorer,
+            Contextual Rule Balancer, Strict Compliance Guardian).</p>
+          <p>Positioning: <br> Explicitly marked as demo and non-legal; loosely inspired by ethics/compliance research
+            themes, not by any proprietary instrument.</p>
+          <a class="live-link" href="https://testhub.space/survey/7s3c4d-251211195748?theme=retro&lang=en"
+            target="_blank" rel="noopener">LIVE SURVEY -> Values &amp; Decision Boundaries</a>
+
+        </article>
+      </div>
+    </section>
+
+    <section id="screeners">
+      <h2>Cognitive, Mood &amp; Recovery Screeners (Demo)</h2>
+      <div class="survey-block">
+        <article class="survey-card" style="--card-bg: url('images/surveys/MoodAndDaily.png');">
+          <h3>Mood &amp; Daily Resilience Screener (Demo)</h3>
+          <p>What it screens: <br> Everyday mood tone, stress reactivity, day-to-day resilience, and perceived support.
+          </p>
+          <p>Use cases: <br> Wellbeing programs, coaching check-ins, pre-/post-intervention tracking.</p>
+          <p>Positioning: <br> Designed as an early-signal screener only. It cannot diagnose depression or anxiety and
+            should
+            never replace professional clinical assessment.</p>
+          <a class="live-link" href="https://testhub.space/survey/omkpzh-251211195803?theme=pastel&lang=en"
+            target="_blank" rel="noopener">LIVE SURVEY -> Mood &amp; Daily Resilience Screener</a>
+
+        </article>
+
+        <article class="survey-card" style="--card-bg: url('images/surveys/LifeStyleSleepFatigueScreener.png');">
+          <h3>Lifestyle Sleep &amp; Fatigue Risk Screener (Demo)</h3>
+          <p>What it screens: <br> Sleep duration and regularity, sleep hygiene habits, daytime fatigue, and recovery
+            behaviours.</p>
+          <p>Use cases: <br> Fatigue risk management, wellbeing campaigns, health coaching.</p>
+          <p>Positioning: <br> Non-clinical; highlights patterns that may warrant discussion with a healthcare
+            professional.
+          </p>
+          <a class="live-link" href="https://testhub.space/survey/od1y2j-251211195800?theme=sunset&lang=en"
+            target="_blank" rel="noopener">LIVE SURVEY -> Lifestyle Sleep &amp; Fatigue Risk Screener</a>
+
+        </article>
+
+        <article class="survey-card" style="--card-bg: url('images/surveys/CognitiveSelf.png');">
+          <h3>Cognitive Self-Awareness Screener (Demo)</h3>
+          <p>What it screens: <br> Self-reported attention, memory slips, mental load, and subjective cognitive clarity.
+          </p>
+          <p>Use cases:<br> Digital wellbeing programs, workload/burnout conversations, coaching.</p>
+          <p>Positioning: <br> Not a tool for diagnosing cognitive decline or neurological conditions. It simply
+            surfaces
+            self-perceived patterns that may deserve further exploration with qualified professionals.</p>
+          <a class="live-link" href="https://testhub.space/survey/0akgzb-251211195756?theme=dracula&lang=en"
+            target="_blank" rel="noopener">LIVE SURVEY -> Cognitive Self-Awareness Screener</a>
+
+        </article>
+      </div>
+    </section>
+
+    <section id="learning">
+      <h2>Learning &amp; Study</h2>
+      <div class="survey-block">
+        <article class="survey-card" style="--card-bg: url('images/surveys/LearningStudy.png');">
+          <h3>Learning Readiness &amp; Study Habits Inventory</h3>
+          <p>What it screens: <br> Study routines, focus during learning, self-regulation, and exam-preparation habits.
+          </p>
+          <p>Use cases: <br> Education platforms, coaching students, onboarding into training programs.</p>
+          <p>Structure: <br> Multi-dimensional Likert inventory with profiles per dimension (e.g. structured vs reactive
+            study habits).</p>
+          <p>Linkages: <br> Can be aligned with your MCQ testing engine to correlate learning habits with outcomes.</p>
+          <a class="live-link" href="https://testhub.space/survey/jqrqxg-251211195742?theme=emerald&lang=en"
+            target="_blank" rel="noopener">LIVE SURVEY -> Learning Readiness &amp; Study Habits</a>
+
+        </article>
+      </div>
+    </section>
+
+    <section id="gallery">
+      <h2>Gallery</h2>
+      <div class="survey-block">
+        <p class="ml-10px">User view</p>
+        <div class="gallery">
+          <div class="gallery-grid">
+            <div class="gallery-card">
+              <img src="images/surveys/BIGO1.png" alt="Big Five intro">
+              <div>Intro &amp; description</div>
+            </div>
+            <div class="gallery-card">
+              <img src="images/surveys/BIGO2.png" alt="Big Five question">
+              <div>Example question</div>
+            </div>
+            <div class="gallery-card">
+              <img src="images/surveys/BIGO3.png" alt="Big Five results">
+              <div>Results &amp; profiles</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery">
+          <div class="gallery-grid">
+            <div class="gallery-card">
+              <img src="images/surveys/EFEDB.png" alt="ABSI intro">
+              <div>Intro</div>
+            </div>
+            <div class="gallery-card">
+              <img src="images/surveys/EFEDB7.png" alt="ABSI question">
+              <div>Thank you page</div>
+            </div>
+            <div class="gallery-card">
+              <img src="images/surveys/EFEDB8.png" alt="ABSI results">
+              <div>Results</div>
+            </div>
+          </div>
+        </div>
+        <div class="gallery">
+          <div class="gallery-grid">
+            <div class="gallery-card">
+              <img src="images/surveys/EFEDB2.png" alt="Q-types slider">
+              <div>Scale 1</div>
+            </div>
+            <div class="gallery-card">
+              <img src="images/surveys/EFEDB6.png" alt="Q-types radio scale">
+              <div>Scale 2</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="gallery">
+          <div class="gallery-grid">
+            <div class="gallery-card">
+              <img src="images/surveys/EFEDB5.png" alt="Q-types text">
+              <div>Text</div>
+            </div>
+            <div class="gallery-card">
+              <img src="images/surveys/EFEDB4.png" alt="Q-types slider">
+              <div>Multiple</div>
+            </div>
+            <div class="gallery-card">
+              <img src="images/surveys/EFEDB3.png" alt="Q-types radio">
+              <div>Single</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="survey-block">
+        <p class="ml-10px">Admin view</p>
+        <div class="gallery">
+          <div class="gallery-grid">
+            <div class="gallery-card">
+              <img src="images/surveys/ADAPT11.png" alt="ABSI intro">
+              <div>Admin - intro &amp; description</div>
+            </div>
+            <div class="gallery-card">
+              <img src="images/surveys/ADAPT12.png" alt="ABSI question">
+              <div>Admin - question / dimensions</div>
+            </div>
+            <div class="gallery-card">
+              <img src="images/surveys/ADAPT13.png" alt="ABSI results">
+              <div>Admin - results &amp; profiles</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>EduToolsFactory powers assessment factories for education, training, and HR teams by combining creation,
+      assignment, analytics, and AI authoring.</p>
+    <div class="footer-bar">
+      <div class="footer-links">
+        <a href="features.html">Capabilities</a>
+        <a href="api.html">API</a>
+        <a href="https://edutoolsfactory.com/security">Security &amp; Compliance</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-actions">
+        <a class="btn btn-secondary" href="investors.html">Investors</a>
+        <a class="btn btn-secondary" href="survey-roadmap.html">Survey Roadmap</a>
+      </div>
+    </div>
+    <p>© <span id="year"></span> EduToolsFactory</p>
+    <a class="back-top" data-scroll="body">↑ Back to top</a>
+  </footer>
+  <button class="floating-top" id="floating-top" aria-label="Back to top">↑</button>
+
+  <script type="module">
+    const scrollLinks = document.querySelectorAll('a[href^="#"], [data-scroll]');
+    const headerEl = document.querySelector('header');
+    const scrollToTarget = target => {
+      if (!target) return;
+      const offset = headerEl.offsetHeight + 20;
+      const top = target === document.body ? 0 : target.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    };
+    scrollLinks.forEach(link => {
+      link.addEventListener('click', event => {
+        const href = link.getAttribute('href');
+        const isAnchor = href && href.startsWith('#');
+        if (!isAnchor && !link.dataset.scroll) return;
+        event.preventDefault();
+        const targetId = link.getAttribute('href') || link.dataset.scroll;
+        const target = targetId === 'body' ? document.body : document.querySelector(targetId);
+        scrollToTarget(target);
+      });
+    });
+
+    const topButton = document.getElementById('floating-top');
+    window.addEventListener('scroll', () => {
+      topButton.classList.toggle('visible', window.scrollY > 400);
+    });
+    topButton.addEventListener('click', () => scrollToTarget(document.body));
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Lightbox for gallery images
+    const lightbox = document.createElement('div');
+    lightbox.className = 'lightbox';
+    lightbox.innerHTML = `
+      <div class="lightbox-content">
+        <button class="lightbox-close" aria-label="Close image">×</button>
+        <img src="" alt="Survey preview">
+      </div>
+    `;
+    document.body.appendChild(lightbox);
+    const lightboxImg = lightbox.querySelector('img');
+    const lightboxClose = lightbox.querySelector('.lightbox-close');
+
+    const openLightbox = src => {
+      lightboxImg.src = src;
+      lightbox.classList.add('visible');
+    };
+
+    const closeLightbox = () => {
+      lightbox.classList.remove('visible');
+      lightboxImg.src = '';
+    };
+
+    document.querySelectorAll('.gallery-card img').forEach(img => {
+      img.style.cursor = 'zoom-in';
+      img.addEventListener('click', () => openLightbox(img.src));
+    });
+
+    lightbox.addEventListener('click', event => {
+      if (event.target === lightbox || event.target === lightboxClose) {
+        closeLightbox();
+      }
+    });
+
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && lightbox.classList.contains('visible')) {
+        closeLightbox();
+      }
+    });
+  </script>
+</body>
+
+</html>
