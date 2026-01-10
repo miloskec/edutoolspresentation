@@ -471,6 +471,10 @@
       align-items: center;
     }
 
+    .split-top {
+      align-items: start;
+    }
+
     .form-grid {
       display: grid;
       gap: 1rem;
@@ -486,7 +490,7 @@
       border: 1px solid rgba(123, 92, 255, 0.3);
     }
 
-    
+
     footer {
       background: #0c0f18;
       padding: 2rem clamp(1rem, 4vw, 2.5rem);
@@ -885,7 +889,7 @@
     </section>
 
     <section id="mcq">
-      <div class="split">
+      <div class="split split-top">
         <div>
           <h2>Optimized for Multiple-Choice Questions (MCQ).</h2>
           <p class="section-intro">Structured authoring with answer keys, rationale for each option, and math notation
@@ -916,6 +920,42 @@
             <button class="btn btn-secondary" id="mcq-reset">Reset</button>
           </div>
           <p class="mcq-feedback" id="mcq-feedback"></p>
+        </div>
+
+      </div>
+      <div class="split split-top">
+        <div style="margin-top: 1rem; background: rgba(255, 255, 255, 0.05); border-radius: 16px; padding: 1rem;">
+          <h3 style="color: var(--text);" class="section-intro">MCQ Framework</h3>
+          <p style="color: var(--muted);" class="section-intro">Behind these MCQ features is an domain-aware MCQ
+            framework.
+            It defines what can be measured, how questions are formed, and where interpretation must stop to keep
+            multiple-choice assessment valid.
+          </p>
+          <p style="color: var(--muted);" class="section-intro">
+            Different domains are supported including literature, law, technical documentation... each with
+            domain-specific rules, source requirements, and cognitive depth boundaries.
+            This is for teams that need methodological rigor, repeatability, and auditability - not just question
+            generation.
+          </p>
+          <a style="color: var(--accent-blue);cursor: pointer;" href="https://edutoolsfactory.com/mcq-methodology">See
+            it applied on a real example: 1984.</a>
+        </div>
+        <div style="margin-top: 1rem; background: rgba(255, 255, 255, 0.05); border-radius: 16px; padding: 1rem;">
+          <h3 style="color: var(--text);" class="section-intro">MCQ Wizard</h3>
+          <p style="color: var(--muted);" class="section-intro">
+            It extracts content from a selected source and generates MCQ items directly from that material, without
+            applying domain-specific framework rules.
+          </p>
+          <p style="color: var(--muted);" class="section-intro">
+            The output is a raw MCQ draft - not methodologically constrained or validated, but often useful for quick
+            practice, content exploration, or early-stage drafts.
+            Items can be reviewed, refined, or discarded before publishing.</p>
+          <p style="color: var(--muted);">
+            When rigor, consistency, and auditability are required, the full MCQ framework remains available.
+          </p>
+          <a style="color: var(--accent-blue);cursor: pointer;"
+            href="#extension-teaser">See in action</a>
+
         </div>
       </div>
     </section>
@@ -955,7 +995,8 @@
         </div>
         <div class="video-placeholder">
           <div class="video-frame">
-            <iframe src="https://www.youtube.com/embed/3_z9OekAmTY?list=PL0lLpJc56xlnFx1ZdmV3_fi0kmxUMlGqM&index=3&rel=0"
+            <iframe
+              src="https://www.youtube.com/embed/3_z9OekAmTY?list=PL0lLpJc56xlnFx1ZdmV3_fi0kmxUMlGqM&index=3&rel=0"
               title="MCQ creation" frameborder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowfullscreen loading="lazy"></iframe>
@@ -971,7 +1012,8 @@
       <div class="split">
         <div class="video-placeholder">
           <div class="video-frame">
-            <iframe src="https://www.youtube.com/embed/6sAPJ0-HVJc?list=PL0lLpJc56xlnFx1ZdmV3_fi0kmxUMlGqM&index=1&rel=0"
+            <iframe
+              src="https://www.youtube.com/embed/6sAPJ0-HVJc?list=PL0lLpJc56xlnFx1ZdmV3_fi0kmxUMlGqM&index=1&rel=0"
               title="Fine-tune every test before you publish." frameborder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowfullscreen loading="lazy"></iframe>
@@ -984,7 +1026,8 @@
         <div>
           <h2>Fine-tune every test before you publish.</h2>
           <ul style="color: var(--muted); padding-left: 1.2rem;">
-            <li>Assign tests to individuals for personalized result tracking, or to groups for fully anonymous submissions.</li>
+            <li>Assign tests to individuals for personalized result tracking, or to groups for fully anonymous
+              submissions.</li>
             <li>Edit any generated question: tweak wording, change the correct key, or adjust distractors.</li>
             <li>Add or refine explanations and “why others are wrong” for deeper learning.</li>
             <li>Attach references (anchors, TOC sections, URLs) so students can jump back to the source material.</li>
@@ -1026,7 +1069,8 @@
 
         <div class="video-placeholder">
           <div class="video-frame">
-            <iframe src="https://www.youtube.com/embed/52WYefjIFnA?list=PL0lLpJc56xlnFx1ZdmV3_fi0kmxUMlGqM&index=2&rel=0"
+            <iframe
+              src="https://www.youtube.com/embed/52WYefjIFnA?list=PL0lLpJc56xlnFx1ZdmV3_fi0kmxUMlGqM&index=2&rel=0"
               title="EduToolsFactory Chrome Extension – URL to MCQ workflow" frameborder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowfullscreen loading="lazy"></iframe>
@@ -1072,7 +1116,7 @@
     </section>
   </main>
 
-<footer>
+  <footer>
     <p>EduToolsFactory powers assessment factories for education, training, and HR teams by combining creation,
       assignment, analytics, and AI authoring.</p>
     <div class="footer-bar">
